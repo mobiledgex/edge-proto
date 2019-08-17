@@ -27,4 +27,6 @@ message AppPort {
   string path_prefix = 4;
   // FQDN prefix to append to base FQDN in FindCloudlet response. May be empty.
   string fqdn_prefix = 5;
+  // A non-zero end port indicates this is a port range from internal port to end port, inclusive.
+  int32 end_port = 6;
 }
