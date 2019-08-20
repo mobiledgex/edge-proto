@@ -263,17 +263,31 @@ message QosPosition{
   Loc gps_location = 2;
 }
 
-message QosPositionKpiRequest{
+// supported band values
+message BandSelection {
+    // Radio Access Technologies
+    repeated string rat_2g = 1;
+    repeated string rat_3g = 2;
+    repeated string rat_4g = 3;
+    repeated string rat_5g = 4;
+}
+
+// QosPositionRequest is used for both GetQosPositionKpi and GetQosPositionClassifier
+message QosPositionRequest{
    // API version
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
   // list of positions
   repeated QosPosition positions = 3;
+  // client's device LTE category number, optional
+  int32 lte_category = 4;
+  // Band list used by the client, optional
+  BandSelection band_selection = 5;
 }
 
-message QosPositionResult{
-    // as set by the client, must be unique within one QosPositionKpiRequest
+message QosPositionKpiResult{
+    // as set by the client, must be unique within one QosPositionRequest
     int64 positionid = 1;
     // the location which was requested
     Loc gps_location = 2;
@@ -294,7 +308,26 @@ message QosPositionKpiReply{
   // Status of the reply
   ReplyStatus status = 2;
   // kpi details
-  repeated QosPositionResult position_results = 3;
+  repeated QosPositionKpiResult position_results = 3;
+}
+
+
+message QosPositionClassifierResult{
+    // as set by the client, must be unique within one QosPositionRequest
+    int64 positionid = 1;
+    // the location which was requested
+    Loc gps_location = 2;
+    int32 uluserthroughput_class = 3;
+    int32 dluserthroughput_class = 4;
+    int32 latency_class = 5;
+}
+
+message QosPositionClassifierReply{
+  uint32 ver = 1;
+  // Status of the reply
+  ReplyStatus status = 2;
+  // kpi details
+  repeated QosPositionClassifierResult position_results = 3;
 }
 
 
@@ -335,15 +368,21 @@ service MatchEngineApi {
       body: "*"
     };
   }
-   rpc GetFqdnList(FqdnListRequest) returns (FqdnListReply) {
+  rpc GetFqdnList(FqdnListRequest) returns (FqdnListReply) {
     option (google.api.http) = {
       post: "/v1/getfqdnlist"
       body: "*"
     };
   }
-    rpc GetQosPositionKpi(QosPositionKpiRequest) returns (stream QosPositionKpiReply) {
+  rpc GetQosPositionKpi(QosPositionRequest) returns (stream QosPositionKpiReply) {
     option (google.api.http) = {
       post: "/v1/getqospositionkpi"
+      body: "*"
+    };
+  }
+  rpc GetQosPositionClassifier(QosPositionRequest) returns (stream QosPositionClassifierReply) {
+    option (google.api.http) = {
+      post: "/v1/getqospositionclassifier"
       body: "*"
     };
   }
