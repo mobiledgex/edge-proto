@@ -272,7 +272,7 @@ message BandSelection {
     repeated string rat_5g = 4;
 }
 
-// QosPositionRequest is used for both GetQosPositionKpi and GetQosPositionClassifier
+// QosPositionRequest is used for both GetQosPositionKpi
 message QosPositionRequest{
    // API version
   uint32 ver = 1;
@@ -310,26 +310,6 @@ message QosPositionKpiReply{
   // kpi details
   repeated QosPositionKpiResult position_results = 3;
 }
-
-
-message QosPositionClassifierResult{
-    // as set by the client, must be unique within one QosPositionRequest
-    int64 positionid = 1;
-    // the location which was requested
-    Loc gps_location = 2;
-    int32 uluserthroughput_class = 3;
-    int32 dluserthroughput_class = 4;
-    int32 latency_class = 5;
-}
-
-message QosPositionClassifierReply{
-  uint32 ver = 1;
-  // Status of the reply
-  ReplyStatus status = 2;
-  // kpi details
-  repeated QosPositionClassifierResult position_results = 3;
-}
-
 
 service MatchEngineApi {
   rpc RegisterClient(RegisterClientRequest) returns (RegisterClientReply) {
@@ -377,12 +357,6 @@ service MatchEngineApi {
   rpc GetQosPositionKpi(QosPositionRequest) returns (stream QosPositionKpiReply) {
     option (google.api.http) = {
       post: "/v1/getqospositionkpi"
-      body: "*"
-    };
-  }
-  rpc GetQosPositionClassifier(QosPositionRequest) returns (stream QosPositionClassifierReply) {
-    option (google.api.http) = {
-      post: "/v1/getqospositionclassifier"
       body: "*"
     };
   }
