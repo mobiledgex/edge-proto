@@ -51,7 +51,7 @@ message FindCloudletRequest {
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
-  // The carrier name that user is connected to ("Cellular Carrier Name")
+  // The carrier name that the user is connected to ("Cellular Carrier Name")
   string carrier_name = 3;
   // The GPS location of the user
   Loc gps_location = 4;
@@ -73,7 +73,7 @@ message FindCloudletReply {
   }
   // Status return
   FindStatus status = 2;
-  // Full Qualified Domain Name of Closest App instance
+  // Fully Qualified Domain Name of the Closest App instance
   string fqdn = 3;
   // List of Service Endpoints for AppInst
   repeated AppPort ports = 4;
@@ -86,11 +86,11 @@ message VerifyLocationRequest {
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
-  // The carrier name that user is connected to ("Cellular Carrier Name")
+  // The carrier name that the user is connected to ("Cellular Carrier Name")
   string carrier_name = 3;
   // The GPS location to verify
   Loc gps_location = 4;
-  // token used for location verification, app must retrieve from TokenServerURI
+  // token used for location verification, app must be retrieve from TokenServerURI
   string verify_loc_token = 5;
 }
 
@@ -115,9 +115,9 @@ message VerifyLocationReply {
     LOC_ERROR_OTHER = 7;
   }
   GPSLocationStatus gps_location_status = 3;
-  // location accuracy, the location is verified to 
+  // location accuracy, the location is verified to
   // be within this number of kilometers.  Negative value
-  // means no verification was done 
+  // means no verification was performed
   double gps_location_accuracy_km = 4;
 }
 
@@ -126,7 +126,7 @@ message GetLocationRequest {
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
-  // The carrier name that user is connected to ("Cellular Carrier Name")
+  // The carrier name that the user is connected to ("Cellular Carrier Name")
   string carrier_name = 3;
 }
 
@@ -140,11 +140,11 @@ message GetLocationReply {
     LOC_DENIED = 2;
   }
   LocStatus status = 2;
-  // The carrier name that user is connected to ("Cellular Carrier Name")
+  // The carrier name that the user is connected to ("Cellular Carrier Name")
   string carrier_name = 3;
   // The tower that user is currently connected to
   uint64 tower = 4;
-  // The GPS location of the user 
+  // The GPS location of the user
   Loc network_location = 5;
 }
 
@@ -153,9 +153,9 @@ message AppInstListRequest {
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
-  // The carrier name that user is connected to ("Cellular Carrier Name")
+  // The carrier name that the user is connected to ("Cellular Carrier Name")
   string carrier_name = 3;
-  // The GPS location of the user 
+  // The GPS location of the user
   Loc gps_location = 4;
 }
 
@@ -171,7 +171,7 @@ message Appinstance{
 }
 
 message CloudletLocation {
-  // The carrier name that user is connected to ("Cellular Carrier Name")
+  // The carrier name that the user is connected to ("Cellular Carrier Name")
   string carrier_name = 1;
   // Cloudlet Name
   string cloudlet_name = 2;
@@ -291,7 +291,7 @@ message QosPositionKpiResult{
     int64 positionid = 1;
     // the location which was requested
     Loc gps_location = 2;
-    // throughput 
+    // throughput
     float dluserthroughput_min = 3;
     float dluserthroughput_avg = 4;
     float dluserthroughput_max = 5;
@@ -361,5 +361,3 @@ service MatchEngineApi {
     };
   }
 }
-
-
