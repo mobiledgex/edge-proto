@@ -22,7 +22,7 @@ message Loc {
   double longitude = 2;
   // horizontal accuracy (radius in meters)
   double horizontal_accuracy = 3;
-  // veritical accuracy (meters)
+  // vertical accuracy (meters)
   double vertical_accuracy = 4;
   // On android only lat and long are guaranteed to be supplied
   // altitude in meters
