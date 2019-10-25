@@ -257,7 +257,7 @@ message DynamicLocGroupReply {
 }
 
 message QosPosition{
-  // as set by the client, must be unique within QosRequest
+  // As set by the client, must be unique within QosRequest
   int64 positionid = 1;
   //location
   Loc gps_location = 2;

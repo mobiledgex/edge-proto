@@ -24,7 +24,7 @@ message Loc {
   double horizontal_accuracy = 3;
   // vertical accuracy (meters)
   double vertical_accuracy = 4;
-  // On android only lat and long are guaranteed to be supplied
+  // On Android only lat and long are guaranteed to be supplied
   // altitude in meters
   double altitude = 5;
   // course (IOS) / bearing (Android) (degrees east relative to true north)
