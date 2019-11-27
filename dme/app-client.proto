@@ -79,6 +79,10 @@ message FindCloudletReply {
   repeated AppPort ports = 4;
   // Location of the cloudlet
   Loc cloudlet_location = 5;
+  // The carrier name that the user is connected to ("Cellular Carrier Name")
+  string carrier_name = 6;
+  // Cloudlet Name
+  string cloudlet_name = 7;
 }
 
 message VerifyLocationRequest {
