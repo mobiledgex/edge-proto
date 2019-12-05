@@ -20,7 +20,7 @@ enum ReplyStatus {
   RS_FAIL = 2;
 }
 
-message VendorData {
+message Tag {
   // type of data
   string type = 1;
   // data value
@@ -40,10 +40,12 @@ message RegisterClientRequest {
   string carrier_name = 5;
   // authentication token
   string auth_token = 6;
+  // ID to uniquely identify a client
+  string client_id = 7;
   // Cell id where the client is
-  uint32 cell_id = 7;
+  uint32 cell_id = 8;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message RegisterClientReply {
@@ -56,7 +58,7 @@ message RegisterClientReply {
   // URI for Token Server
   string token_server_uri = 4;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message FindCloudletRequest {
@@ -77,7 +79,7 @@ message FindCloudletRequest {
   // Cell id where the client is
   uint32 cell_id = 8;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message FindCloudletReply {
@@ -97,7 +99,7 @@ message FindCloudletReply {
   // Location of the cloudlet
   Loc cloudlet_location = 5;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message VerifyLocationRequest {
@@ -114,7 +116,7 @@ message VerifyLocationRequest {
   // Cell id where the client is
   uint32 cell_id = 6;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message VerifyLocationReply {
@@ -143,7 +145,7 @@ message VerifyLocationReply {
   // means no verification was performed
   double gps_location_accuracy_km = 4;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message GetLocationRequest {
@@ -156,7 +158,7 @@ message GetLocationRequest {
   // Cell id where the client is
   uint32 cell_id = 4;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message GetLocationReply {
@@ -176,7 +178,7 @@ message GetLocationReply {
   // The GPS location of the user
   Loc network_location = 5;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message AppInstListRequest {
@@ -191,7 +193,7 @@ message AppInstListRequest {
   // Cell id where the client is
   uint32 cell_id = 5;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message Appinstance{
@@ -230,7 +232,7 @@ message AppInstListReply {
   AIStatus status = 2;
   repeated CloudletLocation cloudlets = 3;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message FqdnListRequest {
@@ -241,7 +243,7 @@ message FqdnListRequest {
   // Cell id where the client is
   uint32 cell_id = 3;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message AppFqdn{
@@ -269,7 +271,7 @@ message FqdnListReply{
   repeated AppFqdn app_fqdns = 3;
   FLStatus status = 4;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message DynamicLocGroupRequest {
@@ -290,7 +292,7 @@ message DynamicLocGroupRequest {
   // Cell id where the client is
   uint32 cell_id = 13;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message DynamicLocGroupReply {
@@ -302,7 +304,7 @@ message DynamicLocGroupReply {
   // Group Cookie for Secure Group Communication
   string group_cookie = 5;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message QosPosition{
@@ -336,7 +338,7 @@ message QosPositionRequest{
   // Cell id where the client is
   uint32 cell_id = 6;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 message QosPositionKpiResult{
@@ -363,7 +365,7 @@ message QosPositionKpiReply{
   // kpi details
   repeated QosPositionKpiResult position_results = 3;
   // Vendor specific data
-  repeated VendorData data = 99;
+  repeated Tag tags = 99;
 }
 
 service MatchEngineApi {
