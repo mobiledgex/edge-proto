@@ -40,10 +40,8 @@ message RegisterClientRequest {
   string carrier_name = 5;
   // authentication token
   string auth_token = 6;
-  // ID to uniquely identify a client
-  string client_id = 7;
   // Cell id where the client is
-  uint32 cell_id = 8;
+  uint32 cell_id = 7;
   // Vendor specific data
   repeated Tag tags = 99;
 }
