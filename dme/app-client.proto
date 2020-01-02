@@ -11,7 +11,7 @@ import "protoc-gen-swagger/options/annotations.proto";
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
   info: {
     version: "1.0";
-    title: "DME Client API";
+    title: "MobiledgeX Client API";
     description: "# Introduction\nThe MobiledgeX APIs provide you with a set of operations and resources to:\n   * Identify your application's backend software\n   * Locate where our backend is running\n   * Verify that the GPS coordinates accurately report the actual location of the device\n   * Find the closest cloudlet, and more.";
   }
 };
