@@ -6,6 +6,15 @@ package distributed_match_engine;
 import "google/api/annotations.proto";
 import "loc.proto";
 import "appcommon.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+  info: {
+    version: "1.0";
+    title: "DME Client API";
+    description: "# Introduction\nThe MobiledgeX APIs provide you with a set of operations and resources to:\n   * Identify your application's backend software\n   * Locate where our backend is running\n   * Verify that the GPS coordinates accurately report the actual location of the device\n   * Find the closest cloudlet, and more.";
+  }
+};
 
 enum IDTypes {
   ID_UNDEFINED = 0;
@@ -36,13 +45,29 @@ message RegisterClientRequest {
   string app_name = 3;
   // App Version
   string app_vers = 4;
-  // carrier name, not currently used
+  /*
+   * Carrier Name
+   *
+   * _Not currently used_
+   */
   string carrier_name = 5;
-  // authentication token
+  /*
+   * Authentication Token
+   *
+   * More details about the auth token here
+   */
   string auth_token = 6;
-  // Cell id where the client is
+  /*
+   * Cell ID
+   *
+   * Cell ID where the client is
+   */
   uint32 cell_id = 7;
-  // Vendor specific data
+  /*
+   * Tags
+   *
+   * Vendor specific data
+   */
   repeated Tag tags = 99;
 }
 
@@ -62,21 +87,53 @@ message RegisterClientReply {
 message FindCloudletRequest {
   // API version
   uint32 ver = 1;
-  // Session Cookie from RegisterClientRequest
+  /*
+   * Session Cookie
+   *
+   * Session Cookie from RegisterClientRequest
+   */
   string session_cookie = 2;
-  // The carrier name that the user is connected to ("Cellular Carrier Name")
+  /*
+   * Carrier Name
+   *
+   * The carrier name that the user is connected to _("Cellular Carrier Name")_
+   */
   string carrier_name = 3;
-  // The GPS location of the user
+  /*
+   * GPS Location
+   *
+   * The GPS location of the user
+   */
   Loc gps_location = 4;
-  // DevName is applicable to Platform apps only
+  /*
+   * Dev Name
+   *
+   * Applicable to Platform apps only
+   */
   string dev_name = 5;
-  // App Name is applicable to Platform apps only
+  /*
+   * App Name
+   *
+   * Applicable to Platform apps only
+   */
   string app_name = 6;
-  // App Version is applicable to Platform apps only
+  /*
+   * App Version
+   *
+   * Applicable to Platform apps only
+   */
   string app_vers = 7;
-  // Cell id where the client is
+  /*
+   * Cell ID
+   *
+   * Cell ID where the client is
+   */
   uint32 cell_id = 8;
-  // Vendor specific data
+  /*
+   * Tags
+   *
+   * Vendor specific data
+   */
   repeated Tag tags = 99;
 }
 
@@ -103,17 +160,41 @@ message FindCloudletReply {
 message VerifyLocationRequest {
   // API version
   uint32 ver = 1;
-  // Session Cookie from RegisterClientRequest
+  /*
+   * Session Cookie
+   *
+   * Session Cookie from RegisterClientRequest
+   */
   string session_cookie = 2;
-  // The carrier name that the user is connected to ("Cellular Carrier Name")
+  /*
+   * Carrier Name
+   *
+   * The carrier name that the user is connected to _("Cellular Carrier Name")_
+   */
   string carrier_name = 3;
-  // The GPS location to verify
+  /*
+   * GPS Location
+   *
+   * The GPS location to verify
+   */
   Loc gps_location = 4;
-  // token used for location verification, app must be retrieve from TokenServerURI
+  /*
+   * Verify Location Token
+   *
+   * Must be retrieved from TokenServerURI
+   */
   string verify_loc_token = 5;
-  // Cell id where the client is
+  /*
+   * Cell ID
+   *
+   * Cell ID where the client is
+   */
   uint32 cell_id = 6;
-  // Vendor specific data
+  /*
+   * Tags
+   *
+   * Vendor specific data
+   */
   repeated Tag tags = 99;
 }
 
@@ -368,9 +449,12 @@ message QosPositionKpiReply{
 
 service MatchEngineApi {
   rpc RegisterClient(RegisterClientRequest) returns (RegisterClientReply) {
-      option (google.api.http) = {
+    option (google.api.http) = {
       post: "/v1/registerclient"
       body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      description: "Register the device";
     };
   }
   rpc FindCloudlet(FindCloudletRequest) returns (FindCloudletReply) {
@@ -378,11 +462,17 @@ service MatchEngineApi {
       post: "/v1/findcloudlet"
       body: "*"
     };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      description: "Determines, with our current GPS co-ordinates, the closest cloudlet running our backend";
+    };
   }
   rpc VerifyLocation(VerifyLocationRequest) returns (VerifyLocationReply) {
     option (google.api.http) = {
       post: "/v1/verifylocation"
       body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      description: "Verifies that the GPS coordinates accurately report actual location of device";
     };
   }
   rpc GetLocation(GetLocationRequest) returns (GetLocationReply) {
