@@ -64,6 +64,18 @@ message RegisterClientRequest {
    */
   uint32 cell_id = 7;
   /*
+   * Unique ID Type
+   *
+   * Type of unique ID provided by client
+   */
+  string unique_id_type = 8;
+  /*
+   * Unique ID
+   *
+   * Optional unique identification of client device or user, may be overridden by server
+   */
+  string unique_id = 9;
+  /*
    * Tags
    *
    * Vendor specific data
@@ -80,6 +92,18 @@ message RegisterClientReply {
   string session_cookie = 3;
   // URI for Token Server
   string token_server_uri = 4;
+  /*
+   * Unique ID Type
+   *
+   * Type of unique ID provided by server
+   */
+  string unique_id_type = 5;
+  /*
+   * Unique ID
+   *
+   * Optional unique identification of client device or user
+   */
+  string unique_id = 6;
   // Vendor specific data
   repeated Tag tags = 99;
 }
@@ -96,7 +120,7 @@ message FindCloudletRequest {
   /*
    * Carrier Name
    *
-   * The carrier name that the user is connected to _("Cellular Carrier Name")_
+   * Unique carrier identification (typically MCC + MNC)
    */
   string carrier_name = 3;
   /*
@@ -169,7 +193,7 @@ message VerifyLocationRequest {
   /*
    * Carrier Name
    *
-   * The carrier name that the user is connected to _("Cellular Carrier Name")_
+   * Unique carrier identification (typically MCC + MNC)
    */
   string carrier_name = 3;
   /*
@@ -232,7 +256,7 @@ message GetLocationRequest {
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
-  // The carrier name that the user is connected to ("Cellular Carrier Name")
+  // Unique carrier identification (typically MCC + MNC)
   string carrier_name = 3;
   // Cell id where the client is
   uint32 cell_id = 4;
@@ -250,7 +274,7 @@ message GetLocationReply {
     LOC_DENIED = 2;
   }
   LocStatus status = 2;
-  // The carrier name that the user is connected to ("Cellular Carrier Name")
+  // Unique carrier identification (typically MCC + MNC)
   string carrier_name = 3;
   // The tower that user is currently connected to
   uint64 tower = 4;
@@ -265,7 +289,7 @@ message AppInstListRequest {
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
-  // The carrier name that the user is connected to ("Cellular Carrier Name")
+  // Unique carrier identification (typically MCC + MNC)
   string carrier_name = 3;
   // The GPS location of the user
   Loc gps_location = 4;
@@ -287,7 +311,7 @@ message Appinstance{
 }
 
 message CloudletLocation {
-  // The carrier name that the user is connected to ("Cellular Carrier Name")
+  // Unique carrier identification (typically MCC + MNC)
   string carrier_name = 1;
   // Cloudlet Name
   string cloudlet_name = 2;
