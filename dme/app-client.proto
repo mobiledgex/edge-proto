@@ -66,13 +66,13 @@ message RegisterClientRequest {
   /*
    * Unique ID Type
    *
-   * Type of unique ID provided by client
+   * Type of unique ID provided by the client
    */
   string unique_id_type = 8;
   /*
    * Unique ID
    *
-   * Optional unique identification of client device or user, may be overridden by server
+   * Optional. Unique identification of the client device or user. May be overridden by the server.
    */
   string unique_id = 9;
   /*
@@ -90,18 +90,18 @@ message RegisterClientReply {
   ReplyStatus status = 2;
   // Session Cookie to be used in later API calls
   string session_cookie = 3;
-  // URI for Token Server
+  // URI for the Token Server
   string token_server_uri = 4;
   /*
    * Unique ID Type
    *
-   * Type of unique ID provided by server
+   * Type of unique ID provided by the server
    */
   string unique_id_type = 5;
   /*
    * Unique ID
    *
-   * Optional unique identification of client device or user
+   * Optional. Unique identification of the client device or user
    */
   string unique_id = 6;
   // Vendor specific data
@@ -276,7 +276,7 @@ message GetLocationReply {
   LocStatus status = 2;
   // Unique carrier identification (typically MCC + MNC)
   string carrier_name = 3;
-  // The tower that user is currently connected to
+  // The tower that the user is currently connected to
   uint64 tower = 4;
   // The GPS location of the user
   Loc network_location = 5;
@@ -358,7 +358,7 @@ message AppFqdn{
   string dev_name = 3;
   // App FQDN
   repeated string fqdns = 4;
-  // optional android package name
+  // Optional. Android package name
   string android_package_name = 5;
 }
 
@@ -434,9 +434,9 @@ message QosPositionRequest{
   string session_cookie = 2;
   // list of positions
   repeated QosPosition positions = 3;
-  // client's device LTE category number, optional
+  // Optional. Client's device LTE category number.
   int32 lte_category = 4;
-  // Band list used by the client, optional
+  // Optional. Band list used by the client.
   BandSelection band_selection = 5;
   // Cell id where the client is
   uint32 cell_id = 6;
