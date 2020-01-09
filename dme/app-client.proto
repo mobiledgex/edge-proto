@@ -64,6 +64,18 @@ message RegisterClientRequest {
    */
   uint32 cell_id = 7;
   /*
+   * Unique ID Type
+   *
+   * Type of unique ID provided by the client
+   */
+  string unique_id_type = 8;
+  /*
+   * Unique ID
+   *
+   * Optional. Unique identification of the client device or user. May be overridden by the server.
+   */
+  string unique_id = 9;
+  /*
    * Tags
    *
    * Vendor specific data
@@ -78,8 +90,20 @@ message RegisterClientReply {
   ReplyStatus status = 2;
   // Session Cookie to be used in later API calls
   string session_cookie = 3;
-  // URI for Token Server
+  // URI for the Token Server
   string token_server_uri = 4;
+  /*
+   * Unique ID Type
+   *
+   * Type of unique ID provided by the server
+   */
+  string unique_id_type = 5;
+  /*
+   * Unique ID
+   *
+   * Optional. Unique identification of the client device or user
+   */
+  string unique_id = 6;
   // Vendor specific data
   repeated Tag tags = 99;
 }
@@ -96,7 +120,7 @@ message FindCloudletRequest {
   /*
    * Carrier Name
    *
-   * The carrier name that the user is connected to _("Cellular Carrier Name")_
+   * Unique carrier identification (typically MCC + MNC)
    */
   string carrier_name = 3;
   /*
@@ -169,7 +193,7 @@ message VerifyLocationRequest {
   /*
    * Carrier Name
    *
-   * The carrier name that the user is connected to _("Cellular Carrier Name")_
+   * Unique carrier identification (typically MCC + MNC)
    */
   string carrier_name = 3;
   /*
@@ -232,7 +256,7 @@ message GetLocationRequest {
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
-  // The carrier name that the user is connected to ("Cellular Carrier Name")
+  // Unique carrier identification (typically MCC + MNC)
   string carrier_name = 3;
   // Cell id where the client is
   uint32 cell_id = 4;
@@ -250,9 +274,9 @@ message GetLocationReply {
     LOC_DENIED = 2;
   }
   LocStatus status = 2;
-  // The carrier name that the user is connected to ("Cellular Carrier Name")
+  // Unique carrier identification (typically MCC + MNC)
   string carrier_name = 3;
-  // The tower that user is currently connected to
+  // The tower that the user is currently connected to
   uint64 tower = 4;
   // The GPS location of the user
   Loc network_location = 5;
@@ -265,7 +289,7 @@ message AppInstListRequest {
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
-  // The carrier name that the user is connected to ("Cellular Carrier Name")
+  // Unique carrier identification (typically MCC + MNC)
   string carrier_name = 3;
   // The GPS location of the user
   Loc gps_location = 4;
@@ -287,7 +311,7 @@ message Appinstance{
 }
 
 message CloudletLocation {
-  // The carrier name that the user is connected to ("Cellular Carrier Name")
+  // Unique carrier identification (typically MCC + MNC)
   string carrier_name = 1;
   // Cloudlet Name
   string cloudlet_name = 2;
@@ -334,7 +358,7 @@ message AppFqdn{
   string dev_name = 3;
   // App FQDN
   repeated string fqdns = 4;
-  // optional android package name
+  // Optional. Android package name
   string android_package_name = 5;
 }
 
@@ -410,9 +434,9 @@ message QosPositionRequest{
   string session_cookie = 2;
   // list of positions
   repeated QosPosition positions = 3;
-  // client's device LTE category number, optional
+  // Optional. Client's device LTE category number.
   int32 lte_category = 4;
-  // Band list used by the client, optional
+  // Optional. Band list used by the client.
   BandSelection band_selection = 5;
   // Cell id where the client is
   uint32 cell_id = 6;
