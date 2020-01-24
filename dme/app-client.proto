@@ -209,6 +209,12 @@ message VerifyLocationRequest {
    */
   uint32 cell_id = 6;
   /*
+   * Area Code ID
+   *
+   * _(optional)_ Radio type specific location area code.
+   */
+  uint32 area_code_id = 7;
+  /*
    * Tags
    *
    * _(optional)_ Vendor specific data
