@@ -45,13 +45,13 @@ message RegisterClientRequest {
   /*
    * Authentication Token
    *
-   * More details about the auth token here
+   * _(optional)_ An authentication token supplied by the application.
    */
   string auth_token = 6;
   /*
    * Cell ID
    *
-   * Cell ID where the client is
+   * _(optional)_ Cellular ID of where the client is connected.
    */
   uint32 cell_id = 7;
   /*
@@ -63,13 +63,13 @@ message RegisterClientRequest {
   /*
    * Unique ID
    *
-   * Optional. Unique identification of the client device or user. May be overridden by the server.
+   * _(optional)_ Unique identification of the client device or user. May be overridden by the server.
    */
   string unique_id = 9;
   /*
    * Tags
    *
-   * Vendor specific data
+   * _(optional)_ Vendor specific data
    */
   repeated Tag tags = 99;
 }
@@ -92,10 +92,13 @@ message RegisterClientReply {
   /*
    * Unique ID
    *
-   * Optional. Unique identification of the client device or user
+   * _(optional)_ Unique identification of the client device or user
    */
   string unique_id = 6;
-  // Vendor specific data
+  /* Vendor specific data
+   *
+   * _(optional)_ Array of Tags.
+   */
   repeated Tag tags = 99;
 }
 
@@ -141,13 +144,13 @@ message FindCloudletRequest {
   /*
    * Cell ID
    *
-   * Cell ID where the client is
+   * _(optional)_ Cell ID where the client is
    */
   uint32 cell_id = 8;
   /*
    * Tags
    *
-   * Vendor specific data
+   * _(optional)_ Vendor specific data
    */
   repeated Tag tags = 99;
 }
@@ -168,7 +171,7 @@ message FindCloudletReply {
   repeated AppPort ports = 4;
   // Location of the cloudlet
   Loc cloudlet_location = 5;
-  // Vendor specific data
+  // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
 
@@ -202,13 +205,13 @@ message VerifyLocationRequest {
   /*
    * Cell ID
    *
-   * Cell ID where the client is
+   * _(optional)_ Cell ID where the client is
    */
   uint32 cell_id = 6;
   /*
    * Tags
    *
-   * Vendor specific data
+   * _(optional)_ Vendor specific data
    */
   repeated Tag tags = 99;
 }
@@ -238,7 +241,7 @@ message VerifyLocationReply {
   // be within this number of kilometers.  Negative value
   // means no verification was performed
   double gps_location_accuracy_km = 4;
-  // Vendor specific data
+  // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
 
@@ -249,9 +252,9 @@ message GetLocationRequest {
   string session_cookie = 2;
   // Unique carrier identification (typically MCC + MNC)
   string carrier_name = 3;
-  // Cell id where the client is
+  // _(optional)_ Cell id where the client is
   uint32 cell_id = 4;
-  // Vendor specific data
+  // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
 
@@ -271,7 +274,7 @@ message GetLocationReply {
   uint64 tower = 4;
   // The GPS location of the user
   Loc network_location = 5;
-  // Vendor specific data
+  // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
 
@@ -284,9 +287,9 @@ message AppInstListRequest {
   string carrier_name = 3;
   // The GPS location of the user
   Loc gps_location = 4;
-  // Cell id where the client is
+  // _(optional)_ Cell id where the client is
   uint32 cell_id = 5;
-  // Vendor specific data
+  // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
 
@@ -325,7 +328,7 @@ message AppInstListReply {
   }
   AIStatus status = 2;
   repeated CloudletLocation cloudlets = 3;
-  // Vendor specific data
+  // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
 
@@ -334,9 +337,9 @@ message FqdnListRequest {
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
-  // Cell id where the client is
+  // _(optional)_ Cell id where the client is
   uint32 cell_id = 3;
-  // Vendor specific data
+  // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
 
@@ -349,7 +352,7 @@ message AppFqdn{
   string dev_name = 3;
   // App FQDN
   repeated string fqdns = 4;
-  // Optional. Android package name
+  // _(optional)_ Android package name
   string android_package_name = 5;
 }
 
@@ -364,7 +367,7 @@ message FqdnListReply{
   }
   repeated AppFqdn app_fqdns = 3;
   FLStatus status = 4;
-  // Vendor specific data
+  // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
 
@@ -383,9 +386,9 @@ message DynamicLocGroupRequest {
   DlgCommType comm_type = 11;
   // Unused
   string user_data = 12;
-  // Cell id where the client is
+  // _(optional)_ Cell id where the client is
   uint32 cell_id = 13;
-  // Vendor specific data
+  // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
 
@@ -397,7 +400,7 @@ message DynamicLocGroupReply {
   uint32 error_code = 3;
   // Group Cookie for Secure Group Communication
   string group_cookie = 5;
-  // Vendor specific data
+  // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
 
@@ -425,13 +428,13 @@ message QosPositionRequest{
   string session_cookie = 2;
   // list of positions
   repeated QosPosition positions = 3;
-  // Optional. Client's device LTE category number.
+  // _(optional)_ Client's device LTE category number.
   int32 lte_category = 4;
-  // Optional. Band list used by the client.
+  // _(optional)_ Band list used by the client.
   BandSelection band_selection = 5;
-  // Cell id where the client is
+  // _(optional)_ Cell id where the client is
   uint32 cell_id = 6;
-  // Vendor specific data
+  // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
 
@@ -458,7 +461,7 @@ message QosPositionKpiReply{
   ReplyStatus status = 2;
   // kpi details
   repeated QosPositionKpiResult position_results = 3;
-  // Vendor specific data
+  // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
 
