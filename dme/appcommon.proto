@@ -15,6 +15,8 @@ enum LProto {
   L_PROTO_HTTP = 3;
 }
 
+// Application Port
+//
 // AppPort describes an L4 or L7 public access port/path mapping. This is used to track external to internal mappings for access via a shared load balancer or reverse proxy.
 message AppPort {
   // TCP (L4), UDP (L4), or HTTP (L7) protocol
