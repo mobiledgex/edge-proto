@@ -471,7 +471,7 @@ service MatchEngineApi {
    *
    * Registers the client with the closest Distributed Matching Engine (the
    * nearest edge location in the Operator network) and validates the
-   * legitimacy of the mobile subscriber. All session information is encrypted
+   * legitimacy of the mobile subscriber. All session information is encrypted.
    */
   rpc RegisterClient(RegisterClientRequest) returns (RegisterClientReply) {
     option (google.api.http) = {
