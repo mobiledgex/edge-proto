@@ -31,4 +31,6 @@ message AppPort {
   string fqdn_prefix = 5;
   // A non-zero end port indicates a port range from internal port to end port, inclusive.
   int32 end_port = 6;
+  // TLS termination for this port
+  bool tls = 7;
 }
