@@ -31,7 +31,7 @@ message RegisterClientRequest {
   // API version
   uint32 ver = 1;
   // App Developer Name
-  string dev_name = 2;
+  string org_name = 2;
   // App Name
   string app_name = 3;
   // App Version
@@ -128,7 +128,7 @@ message FindCloudletRequest {
    *
    * Applicable to Platform apps only
    */
-  string dev_name = 5;
+  string org_name = 5;
   /*
    * App Name
    *
@@ -349,7 +349,7 @@ message AppFqdn{
   // App Version
   string app_vers = 2;
   // developer name
-  string dev_name = 3;
+  string org_name = 3;
   // App FQDN
   repeated string fqdns = 4;
   // _(optional)_ Android package name
