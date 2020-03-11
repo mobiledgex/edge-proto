@@ -124,7 +124,7 @@ message FindCloudletRequest {
    */
   Loc gps_location = 4;
   /*
-   * Dev Name
+   * Organization Name
    *
    * Applicable to Platform apps only
    */
@@ -302,6 +302,8 @@ message Appinstance{
   string fqdn = 3;
   // ports to access app
   repeated AppPort ports = 4;
+  // App Organization Name
+  string org_name = 5;
 }
 
 message CloudletLocation {
