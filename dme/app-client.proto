@@ -350,7 +350,7 @@ message AppFqdn{
   string app_name = 1;
   // App Version
   string app_vers = 2;
-  // developer name
+  // App organization name
   string org_name = 3;
   // App FQDN
   repeated string fqdns = 4;
