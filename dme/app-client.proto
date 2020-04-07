@@ -373,6 +373,29 @@ message FqdnListReply{
   repeated Tag tags = 99;
 }
 
+message AppFqdnRequest {
+  // API version
+  uint32 ver = 1;
+  // Session Cookie from RegisterClientRequest
+  string session_cookie = 2;
+  repeated Tag tags = 99;
+}
+
+message AppFqdnReply{
+  // API version
+  uint32 ver = 1;
+  // Status of the reply
+  enum AFStatus {
+    AF_UNDEFINED = 0;
+    AF_SUCCESS = 1;
+    AF_FAIL = 2;
+  }
+  string app_fqdn = 2;
+  AFStatus status = 4;
+  // _(optional)_ Vendor specific data
+  repeated Tag tags = 99;
+}
+
 message DynamicLocGroupRequest {
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
@@ -528,6 +551,12 @@ service MatchEngineApi {
   rpc GetFqdnList(FqdnListRequest) returns (FqdnListReply) {
     option (google.api.http) = {
       post: "/v1/getfqdnlist"
+      body: "*"
+    };
+  }
+  rpc GetAppFqdn(AppFqdnRequest) returns (AppFqdnReply) {
+    option (google.api.http) = {
+      post: "/v1/getappfqdn"
       body: "*"
     };
   }
