@@ -126,19 +126,19 @@ message FindCloudletRequest {
   /*
    * Organization Name
    *
-   * Applicable to Platform apps only
+   * _(optional)_ Applicable to Platform apps only
    */
   string org_name = 5;
   /*
    * App Name
    *
-   * Applicable to Platform apps only
+   * _(optional)_ Applicable to Platform apps only
    */
   string app_name = 6;
   /*
    * App Version
    *
-   * Applicable to Platform apps only
+   * _(optional)_ Applicable to Platform apps only
    */
   string app_vers = 7;
   /*
