@@ -124,29 +124,58 @@ message FindCloudletRequest {
    */
   Loc gps_location = 4;
   /*
-   * Organization Name
-   *
-   * _(optional)_ Applicable to Platform apps only
-   */
-  string org_name = 5;
-  /*
-   * App Name
-   *
-   * _(optional)_ Applicable to Platform apps only
-   */
-  string app_name = 6;
-  /*
-   * App Version
-   *
-   * _(optional)_ Applicable to Platform apps only
-   */
-  string app_vers = 7;
-  /*
    * Cell ID
    *
    * _(optional)_ Cell ID where the client is
    */
   uint32 cell_id = 8;
+  /*
+   * Tags
+   *
+   * _(optional)_ Vendor specific data
+   */
+  repeated Tag tags = 99;
+}
+
+message FindCloudletWithTokenRequest {
+  // API version
+  uint32 ver = 1;
+  /*
+   * Session Cookie
+   *
+   * Session Cookie from RegisterClientRequest
+   */
+  string session_cookie = 2;
+  /*
+   * Carrier Name
+   *
+   * Unique carrier identification (typically MCC + MNC)
+   */
+  string carrier_name = 3;
+  /*
+   * Location Token
+   *
+   * Token with encoded GPS location
+   */
+  string location_token = 4;
+  /*
+   * Organization Name
+   *
+   * Application Organization Name
+   */
+  string org_name = 5;
+  /*
+   * App Name
+   *
+   * Application Name
+   */
+  string app_name = 6;
+  /*
+   * App Version
+   *
+   * Application Version
+   */
+  string app_vers = 7;
   /*
    * Tags
    *
@@ -373,6 +402,36 @@ message FqdnListReply{
   repeated Tag tags = 99;
 }
 
+message AppOfficialFqdnRequest {
+  // API version
+  uint32 ver = 1;
+  // Session Cookie from RegisterClientRequest
+  string session_cookie = 2;
+  // The GPS location of the user
+  Loc gps_location = 3;
+  // _(optional)_ Vendor specific data
+  repeated Tag tags = 99;
+}
+
+message AppOfficialFqdnReply{
+  // API version
+  uint32 ver = 1;
+  // Status of the reply
+  enum AOFStatus {
+    AOF_UNDEFINED = 0;
+    AOF_SUCCESS = 1;
+    AOF_FAIL = 2;
+  }
+  // The FQDN to which the app is reached independent of the edge
+  string app_official_fqdn = 2;
+  // Tokenized GPS location of the user
+  string location_token = 3;
+  // Status of the reply
+  AOFStatus status = 4;
+  // _(optional)_ Vendor specific data
+  repeated Tag tags = 99;
+}
+
 message DynamicLocGroupRequest {
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
@@ -496,6 +555,19 @@ service MatchEngineApi {
       body: "*"
     };
   }
+
+  /*
+   * FindCloudletWithToken
+   *
+   * Similar to FindCloudlet, except uses a token for the GPS location.  
+   * FindCloudletWithToken is only application for Platform Applications
+   */
+  rpc FindCloudletWithToken(FindCloudletWithTokenRequest) returns (FindCloudletReply) {
+    option (google.api.http) = {
+      post: "/v1/findcloudletwithtoken"
+      body: "*"
+    };
+  }
   /*
    * VerifyLocation
    *
@@ -528,6 +600,12 @@ service MatchEngineApi {
   rpc GetFqdnList(FqdnListRequest) returns (FqdnListReply) {
     option (google.api.http) = {
       post: "/v1/getfqdnlist"
+      body: "*"
+    };
+  }
+  rpc GetAppOfficialFqdn(AppOfficialFqdnRequest) returns (AppOfficialFqdnReply) {
+    option (google.api.http) = {
+      post: "/v1/getappofficialfqdn"
       body: "*"
     };
   }
