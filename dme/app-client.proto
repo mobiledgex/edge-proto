@@ -416,16 +416,15 @@ message AppOfficialFqdnRequest {
 message AppOfficialFqdnReply{
   // API version
   uint32 ver = 1;
-  // Status of the reply
+  // The FQDN to which the app is reached independent of the edge
+  string app_official_fqdn = 2;
+  // Tokenized GPS location of the user
+  string location_token = 3;
   enum AOFStatus {
     AOF_UNDEFINED = 0;
     AOF_SUCCESS = 1;
     AOF_FAIL = 2;
   }
-  // The FQDN to which the app is reached independent of the edge
-  string app_official_fqdn = 2;
-  // Tokenized GPS location of the user
-  string location_token = 3;
   // Status of the reply
   AOFStatus status = 4;
   // _(optional)_ Vendor specific data
@@ -560,7 +559,7 @@ service MatchEngineApi {
    * FindCloudletWithToken
    *
    * Similar to FindCloudlet, except uses a token for the GPS location.  
-   * FindCloudletWithToken is only application for Platform Applications
+   * This API is only application for Platform Applications.
    */
   rpc FindCloudletWithToken(FindCloudletWithTokenRequest) returns (FindCloudletReply) {
     option (google.api.http) = {
