@@ -137,7 +137,7 @@ message FindCloudletRequest {
   repeated Tag tags = 99;
 }
 
-message FindCloudletWithTokenRequest {
+message PlatformFindCloudletRequest {
   // API version
   uint32 ver = 1;
   /*
@@ -153,11 +153,11 @@ message FindCloudletWithTokenRequest {
    */
   string carrier_name = 3;
   /*
-   * Location Token
+   * Client Token
    *
-   * Token with encoded GPS location
+   * Token with encoded client data
    */
-  string location_token = 4;
+  string client_token = 4;
   /*
    * Organization Name
    *
@@ -418,8 +418,8 @@ message AppOfficialFqdnReply{
   uint32 ver = 1;
   // The FQDN to which the app is reached independent of the edge
   string app_official_fqdn = 2;
-  // Tokenized GPS location of the user
-  string location_token = 3;
+  // Tokenized client data
+  string client_token = 3;
   enum AOFStatus {
     AOF_UNDEFINED = 0;
     AOF_SUCCESS = 1;
@@ -556,14 +556,14 @@ service MatchEngineApi {
   }
 
   /*
-   * FindCloudletWithToken
+   * PlatformFindCloudlet
    *
-   * Similar to FindCloudlet, except uses a token for the GPS location.  
+   * Similar to FindCloudlet, except uses a token for client data.  
    * This API is only application for Platform Applications.
    */
-  rpc FindCloudletWithToken(FindCloudletWithTokenRequest) returns (FindCloudletReply) {
+  rpc PlatformFindCloudlet(PlatformFindCloudletRequest) returns (FindCloudletReply) {
     option (google.api.http) = {
-      post: "/v1/findcloudletwithtoken"
+      post: "/v1/platformfindcloudlet"
       body: "*"
     };
   }
