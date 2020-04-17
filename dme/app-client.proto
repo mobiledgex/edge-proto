@@ -159,24 +159,6 @@ message PlatformFindCloudletRequest {
    */
   string client_token = 4;
   /*
-   * Organization Name
-   *
-   * Application Organization Name
-   */
-  string org_name = 5;
-  /*
-   * App Name
-   *
-   * Application Name
-   */
-  string app_name = 6;
-  /*
-   * App Version
-   *
-   * Application Version
-   */
-  string app_vers = 7;
-  /*
    * Tags
    *
    * _(optional)_ Vendor specific data
