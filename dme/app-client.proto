@@ -57,13 +57,15 @@ message RegisterClientRequest {
   /*
    * Unique ID Type
    *
-   * Type of unique ID provided by the client
+   * _(optional)_ Type of unique ID provided by the client.
+   * If left blank, RegisterClientReply will contain generated Unique Id Type.
    */
   string unique_id_type = 8;
   /*
    * Unique ID
    *
    * _(optional)_ Unique identification of the client device or user. May be overridden by the server.
+   * If left blank, RegisterClientReply will contain generated Unique Id.
    */
   string unique_id = 9;
   /*
@@ -86,13 +88,15 @@ message RegisterClientReply {
   /*
    * Unique ID Type
    *
-   * Type of unique ID provided by the server
+   * _(optional)_ Type of unique ID provided by the server
+   * If type of unique ID was provided in RegisterClientRequest API call this will be blank.
    */
   string unique_id_type = 5;
   /*
    * Unique ID
    *
    * _(optional)_ Unique identification of the client device or user
+   * If unique ID was provided in RegisterClientRequest API call this will be blank.
    */
   string unique_id = 6;
   /* Vendor specific data
