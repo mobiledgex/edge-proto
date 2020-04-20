@@ -62,14 +62,14 @@ message RegisterClientRequest {
    * Unique ID Type
    *
    * _(optional)_ Type of unique ID provided by the client.
-   * If left blank, RegisterClientReply will contain generated Unique Id Type.
+   * If left blank, a new Unique ID type will be assigned in the RegisterClient Reply.
    */
   string unique_id_type = 8;
   /*
    * Unique ID
    *
    * _(optional)_ Unique identification of the client device or user. May be overridden by the server.
-   * If left blank, RegisterClientReply will contain generated Unique Id.
+   * If left blank, a new Unique ID will be assigned in the RegisterClient Reply.
    */
   string unique_id = 9;
   /*
@@ -97,14 +97,26 @@ message RegisterClientReply {
    * Unique ID Type
    *
    * _(optional)_ Type of unique ID provided by the server
-   * If type of unique ID was provided in RegisterClientRequest API call this will be blank.
+   * A unique_id_type and unique_id may be provided by the client to be registered.
+   * During registering, if a unique _id_type and unique_id are provided by the client in their request,
+   * the unique_id_type and unique_id will be left blank in the response.
+   * But, if the client does not provide a unique_id_type and unique_id, then the server generates
+   * one and provides the unique_id in the response. If possible, the unique_id should be saved by the
+   * client locally and used for subsequent RegisterClient API calls. Otherwise, a new unique_id will be
+   * generated for further API calls.
    */
   string unique_id_type = 5;
   /*
    * Unique ID
    *
    * _(optional)_ Unique identification of the client device or user
-   * If unique ID was provided in RegisterClientRequest API call this will be blank.
+   * A unique_id_type and unique_id may be provided by the client to be registered.
+   * During registering, if a unique _id_type and unique_id are provided by the client in their request,
+   * the unique_id_type and unique_id will be left blank in the response.
+   * But, if the client does not provide a unique_id_type and unique_id, then the server generates
+   * one and provides the unique_id in the response. If possible, the unique_id should be saved by the
+   * client locally and used for subsequent RegisterClient API calls. Otherwise, a new unique_id will be
+   * generated for further API calls.
    */
   string unique_id = 6;
   /* Vendor specific data
