@@ -28,7 +28,11 @@ message Tag {
 }
 
 message RegisterClientRequest {
-  // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // App Developer Name
   string org_name = 2;
@@ -39,7 +43,7 @@ message RegisterClientRequest {
   /*
    * Carrier Name
    *
-   * _Not currently used_
+   * _(hidden)_ Reserved for future use
    */
   string carrier_name = 5;
   /*
@@ -75,7 +79,11 @@ message RegisterClientRequest {
 }
 
 message RegisterClientReply {
-  // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // Status of the reply
   ReplyStatus status = 2;
@@ -103,7 +111,11 @@ message RegisterClientReply {
 }
 
 message FindCloudletRequest {
-  // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   /*
    * Session Cookie
@@ -114,7 +126,8 @@ message FindCloudletRequest {
   /*
    * Carrier Name
    *
-   * Unique carrier identification (typically MCC + MNC)
+   * _(optional)_ Unique carrier identification (typically MCC + MNC)
+   * If left blank, all carriers are searched
    */
   string carrier_name = 3;
   /*
@@ -138,7 +151,11 @@ message FindCloudletRequest {
 }
 
 message PlatformFindCloudletRequest {
-  // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   /*
    * Session Cookie
@@ -149,7 +166,8 @@ message PlatformFindCloudletRequest {
   /*
    * Carrier Name
    *
-   * Unique carrier identification (typically MCC + MNC)
+   * _(optional)_ Unique carrier identification (typically MCC + MNC)
+   * If left blank, all carriers are searched
    */
   string carrier_name = 3;
   /*
@@ -167,7 +185,11 @@ message PlatformFindCloudletRequest {
 }
 
 message FindCloudletReply {
-  // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   enum FindStatus {
     FIND_UNKNOWN = 0;
@@ -187,7 +209,11 @@ message FindCloudletReply {
 }
 
 message VerifyLocationRequest {
-  // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   /*
    * Session Cookie
@@ -228,7 +254,11 @@ message VerifyLocationRequest {
 }
 
 message VerifyLocationReply {
-  // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // Status of the reply
   enum TowerStatus {
@@ -257,7 +287,11 @@ message VerifyLocationReply {
 }
 
 message GetLocationRequest {
-  // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
@@ -270,6 +304,11 @@ message GetLocationRequest {
 }
 
 message GetLocationReply {
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // Status of the reply
   enum LocStatus {
@@ -290,11 +329,20 @@ message GetLocationReply {
 }
 
 message AppInstListRequest {
-  // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
-  // Unique carrier identification (typically MCC + MNC)
+  /*
+   * Carrier Name
+   *
+   * _(optional)_ Unique carrier identification (typically MCC + MNC)
+   * If left blank, all carriers are searched
+   */
   string carrier_name = 3;
   // The GPS location of the user
   Loc gps_location = 4;
@@ -318,7 +366,7 @@ message Appinstance{
 }
 
 message CloudletLocation {
-  // Unique carrier identification (typically MCC + MNC)
+  // Cloudlet Organization Name
   string carrier_name = 1;
   // Cloudlet Name
   string cloudlet_name = 2;
@@ -331,7 +379,11 @@ message CloudletLocation {
 }
 
 message AppInstListReply {
-  // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // Status of the reply
   enum AIStatus {
@@ -346,7 +398,11 @@ message AppInstListReply {
 }
 
 message FqdnListRequest {
-  // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
@@ -370,7 +426,11 @@ message AppFqdn{
 }
 
 message FqdnListReply{
-  // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // Status of the reply
   enum FLStatus {
@@ -385,7 +445,11 @@ message FqdnListReply{
 }
 
 message AppOfficialFqdnRequest {
-  // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
@@ -396,7 +460,11 @@ message AppOfficialFqdnRequest {
 }
 
 message AppOfficialFqdnReply{
-  // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // The FQDN to which the app is reached independent of the edge
   string app_official_fqdn = 2;
@@ -414,6 +482,11 @@ message AppOfficialFqdnReply{
 }
 
 message DynamicLocGroupRequest {
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
@@ -435,6 +508,11 @@ message DynamicLocGroupRequest {
 }
 
 message DynamicLocGroupReply {
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // Status of the reply
   ReplyStatus status = 2;
@@ -464,7 +542,11 @@ message BandSelection {
 
 // QosPositionRequest is used for both GetQosPositionKpi
 message QosPositionRequest{
-   // API version
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
@@ -498,6 +580,11 @@ message QosPositionKpiResult{
 }
 
 message QosPositionKpiReply{
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
   uint32 ver = 1;
   // Status of the reply
   ReplyStatus status = 2;
