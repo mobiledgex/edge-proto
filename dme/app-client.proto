@@ -39,7 +39,7 @@ message RegisterClientRequest {
   /*
    * Carrier Name
    *
-   * _Not currently used_
+   * _Reserved for future use_
    */
   string carrier_name = 5;
   /*
@@ -114,7 +114,8 @@ message FindCloudletRequest {
   /*
    * Carrier Name
    *
-   * Unique carrier identification (typically MCC + MNC)
+   * _(optional)_ Unique carrier identification (typically MCC + MNC)
+   * If left blank, all carriers are searched
    */
   string carrier_name = 3;
   /*
@@ -149,7 +150,8 @@ message PlatformFindCloudletRequest {
   /*
    * Carrier Name
    *
-   * Unique carrier identification (typically MCC + MNC)
+   * _(optional)_ Unique carrier identification (typically MCC + MNC)
+   * If left blank, all carriers are searched
    */
   string carrier_name = 3;
   /*
@@ -294,7 +296,12 @@ message AppInstListRequest {
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
-  // Unique carrier identification (typically MCC + MNC)
+  /*
+   * Carrier Name
+   *
+   * _(optional)_ Unique carrier identification (typically MCC + MNC)
+   * If left blank, all carriers are searched
+   */
   string carrier_name = 3;
   // The GPS location of the user
   Loc gps_location = 4;
@@ -318,7 +325,7 @@ message Appinstance{
 }
 
 message CloudletLocation {
-  // Unique carrier identification (typically MCC + MNC)
+  // Cloudlet Organization Name
   string carrier_name = 1;
   // Cloudlet Name
   string cloudlet_name = 2;
