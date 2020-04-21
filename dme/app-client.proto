@@ -98,7 +98,7 @@ message RegisterClientReply {
    *
    * _(optional)_ Type of unique ID provided by the server
    * A unique_id_type and unique_id may be provided by the client to be registered.
-   * During registering, if a unique _id_type and unique_id are provided by the client in their request,
+   * During registering, if a unique_id_type and unique_id are provided by the client in their request,
    * the unique_id_type and unique_id will be left blank in the response.
    * But, if the client does not provide a unique_id_type and unique_id, then the server generates
    * one and provides the unique_id in the response. If possible, the unique_id should be saved by the
@@ -111,7 +111,7 @@ message RegisterClientReply {
    *
    * _(optional)_ Unique identification of the client device or user
    * A unique_id_type and unique_id may be provided by the client to be registered.
-   * During registering, if a unique _id_type and unique_id are provided by the client in their request,
+   * During registering, if a unique_id_type and unique_id are provided by the client in their request,
    * the unique_id_type and unique_id will be left blank in the response.
    * But, if the client does not provide a unique_id_type and unique_id, then the server generates
    * one and provides the unique_id in the response. If possible, the unique_id should be saved by the
