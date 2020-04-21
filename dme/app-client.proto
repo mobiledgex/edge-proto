@@ -364,6 +364,8 @@ message AppInstListRequest {
   Loc gps_location = 4;
   // _(optional)_ Cell id where the client is
   uint32 cell_id = 5;
+  // _(optional)_ Limit the number of results, defaults to 3
+  uint32 limit = 6;
   // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
