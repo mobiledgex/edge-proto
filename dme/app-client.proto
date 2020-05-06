@@ -34,7 +34,7 @@ message RegisterClientRequest {
    * _(hidden)_ Reserved for future use
    */
   uint32 ver = 1;
-  // App Developer Name
+  // App Organization Name
   string org_name = 2;
   // App Name
   string app_name = 3;
