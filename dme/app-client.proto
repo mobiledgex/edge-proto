@@ -34,12 +34,24 @@ message RegisterClientRequest {
    * _(hidden)_ Reserved for future use
    */
   uint32 ver = 1;
-  // App Organization Name
-  string org_name = 2;
-  // App Name
-  string app_name = 3;
-  // App Version
-  string app_vers = 4;
+  /*
+  * App Organization Name
+  *
+  * App developer organization name.
+ */
+ string org_name= 2;
+ /*
+  * App Name
+  *
+  * Name of your application.
+ */
+ string app_name= 3;
+ /*
+  * App Version
+  *
+  * Application version.
+ */
+ string app_vers= 4;
   /*
    * Carrier Name
    *
@@ -645,7 +657,7 @@ service MatchEngineApi {
   /*
    * PlatformFindCloudlet
    *
-   * Similar to FindCloudlet, except uses a token for client data.  
+   * Similar to FindCloudlet, except uses a token for client data.
    * This API is only application for Platform Applications.
    */
   rpc PlatformFindCloudlet(PlatformFindCloudletRequest) returns (FindCloudletReply) {
