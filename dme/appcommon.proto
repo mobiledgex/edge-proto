@@ -33,4 +33,6 @@ message AppPort {
   int32 end_port = 6;
   // TLS termination for this port
   bool tls = 7;
+  // Proxy health check for this port
+  bool skip_health_check = 8;
 }
