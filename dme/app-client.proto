@@ -507,6 +507,8 @@ message AppOfficialFqdnReply{
   }
   // Status of the reply
   AOFStatus status = 4;
+  // List of Service Endpoints for AppInst
+  repeated AppPort ports = 5;
   // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
