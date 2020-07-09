@@ -154,8 +154,8 @@ message FindCloudletRequest {
   /*
    * Carrier Name
    *
-   * _(optional)_ Unique carrier identification (typically MCC + MNC)
-   * If left blank, all carriers are searched
+   * _(optional)_ By default, all SDKs will automatically fill in this parameter with the MCC+MNC of your current provider. Only override this parameter if you need to filter for a specific carrier on the DME. The DME will filter for App instances that are associated with the specified carrier.
+   * If you wish to search for any App Instance on the DME regardless of carrier name, you can input “” to consider all carriers as “Any”.
    */
   string carrier_name = 3;
   /*
@@ -194,8 +194,8 @@ message PlatformFindCloudletRequest {
   /*
    * Carrier Name
    *
-   * _(optional)_ Unique carrier identification (typically MCC + MNC)
-   * If left blank, all carriers are searched
+   * _(optional)_ By default, all SDKs will automatically fill in this parameter with the MCC+MNC of your current provider. Only override this parameter if you need to filter for a specific carrier on the DME. The DME will filter for App instances that are associated with the specified carrier.
+   * If you wish to search for any app instance on the DME regardless of carrier name, you can input “” to consider all carriers as “Any”.
    */
   string carrier_name = 3;
   /*
@@ -368,8 +368,8 @@ message AppInstListRequest {
   /*
    * Carrier Name
    *
-   * _(optional)_ Unique carrier identification (typically MCC + MNC)
-   * If left blank, all carriers are searched
+   * _(optional)_ By default, all SDKs will automatically fill in this parameter with the MCC+MNC of your current provider. Only override this parameter if you need to filter for a specific carrier on the DME. The DME will filter for App instances that are associated with the specified carrier.
+   * If you wish to search for any App Instance on the DME regardless of carrier name, you can input “” to consider all carriers as “Any”.
    */
   string carrier_name = 3;
   // The GPS location of the user
@@ -658,7 +658,7 @@ service MatchEngineApi {
    * PlatformFindCloudlet
    *
    * Similar to FindCloudlet, except uses a token for client data.
-   * This API is only application for Platform Applications.
+   * This API is only applicable for Platform Applications.
    */
   rpc PlatformFindCloudlet(PlatformFindCloudletRequest) returns (FindCloudletReply) {
     option (google.api.http) = {
