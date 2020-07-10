@@ -400,7 +400,7 @@ message CloudletLocation {
   string carrier_name = 1;
   // Cloudlet Name
   string cloudlet_name = 2;
-  // The GPS Location of the user
+  // The GPS Location of the cloudlet
   Loc gps_location = 3;
   // Distance of cloudlet vs loc in request
   double distance = 4;
