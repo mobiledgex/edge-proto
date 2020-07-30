@@ -29,4 +29,6 @@ message AppPort {
   int32 end_port = 5;
   // TLS termination for this port
   bool tls = 6;
+  // use nginx proxy for this port if you really need a transparent proxy (udp only)
+  bool nginx = 7;
 }
