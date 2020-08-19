@@ -23,12 +23,13 @@ message AppPort {
   int32 internal_port = 2;
   // Public facing port for TCP/UDP (may be mapped on shared LB reverse proxy)
   int32 public_port = 3;
+  // skip 4 to preserve the numbering. 4 was path_prefix but was removed since we dont need it after removed http
   // FQDN prefix to append to base FQDN in FindCloudlet response. May be empty.
-  string fqdn_prefix = 4;
+  string fqdn_prefix = 5;
   // A non-zero end port indicates a port range from internal port to end port, inclusive.
-  int32 end_port = 5;
+  int32 end_port = 6;
   // TLS termination for this port
-  bool tls = 6;
+  bool tls = 7;
   // use nginx proxy for this port if you really need a transparent proxy (udp only)
-  bool nginx = 7;
+  bool nginx = 8;
 }
