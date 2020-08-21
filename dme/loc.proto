@@ -37,3 +37,16 @@ message Loc {
   // timestamp
   Timestamp timestamp = 8;
 }
+
+// Latency
+message Latency {
+  double avg = 1;
+  double min = 2;
+  double max = 3;
+  // Square root of unbiased variance
+  double std_dev = 4;
+  // Unbiased variance
+  double variance = 5;
+  uint64 num_samples = 6;
+  Timestamp timestamp = 7;
+}
