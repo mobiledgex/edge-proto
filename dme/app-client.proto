@@ -225,6 +225,10 @@ message FindCloudletReply {
   repeated AppPort ports = 4;
   // Location of the cloudlet
   Loc cloudlet_location = 5;
+  // Session Cookie for specific EdgeEvents for specific AppInst
+  string edge_events_cookie = 6;
+  // Fully Qualified Domain Name of the DME on the cloudlet for specified AppInst
+  string dme_fqdn = 7;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
@@ -588,20 +592,20 @@ message QosPositionRequest{
 }
 
 message QosPositionKpiResult{
-    // as set by the client, must be unique within one QosPositionRequest
-    int64 positionid = 1;
-    // the location which was requested
-    Loc gps_location = 2;
-    // throughput
-    float dluserthroughput_min = 3;
-    float dluserthroughput_avg = 4;
-    float dluserthroughput_max = 5;
-    float uluserthroughput_min = 6;
-    float uluserthroughput_avg = 7;
-    float uluserthroughput_max = 8;
-    float latency_min = 9;
-    float latency_avg = 10;
-    float latency_max = 11;
+  // as set by the client, must be unique within one QosPositionRequest
+  int64 positionid = 1;
+  // the location which was requested
+  Loc gps_location = 2;
+  // throughput
+  float dluserthroughput_min = 3;
+  float dluserthroughput_avg = 4;
+  float dluserthroughput_max = 5;
+  float uluserthroughput_min = 6;
+  float uluserthroughput_avg = 7;
+  float uluserthroughput_max = 8;
+  float latency_min = 9;
+  float latency_avg = 10;
+  float latency_max = 11;
 }
 
 message QosPositionKpiReply{
@@ -615,6 +619,76 @@ message QosPositionKpiReply{
   ReplyStatus status = 2;
   // kpi details
   repeated QosPositionKpiResult position_results = 3;
+  // _(optional)_ Vendor specific data
+  map<string, string> tags = 100;
+}
+
+// Messages from SDK to DME
+message ClientEdgeEvent {
+  // Session Cookie from RegisterClientReply
+  string session_cookie = 1;
+  // Session Cookie from FindCloudletReply 
+  string edge_events_cookie = 2;
+  enum ClientEventType {
+    EVENT_UNKNOWN = 0;
+    EVENT_INIT_CONNECTION = 1;
+    EVENT_TERMINATE_CONNECTION = 2;
+    EVENT_LATENCY_SAMPLES = 3;
+    EVENT_LOCATION_UPDATE = 4;
+  }
+  ClientEventType event = 3;
+  // GPS Location info if EventType is EVENT_LOCATION_UPDATE
+  Loc gps_location = 4;
+  // Latency Samples if EventType is EVENT_LATENCY_SAMPLES
+  repeated double samples = 5;
+  // _(optional)_ Vendor specific data
+  map<string, string> tags = 100;
+}
+
+// Message from DME to SDK
+message ServerEdgeEvent {
+  enum ServerEventType {
+    EVENT_UNKNOWN = 0;
+    EVENT_INIT_CONNECTION = 1;
+    EVENT_LATENCY_REQUEST = 2;
+    EVENT_LATENCY_PROCESSED = 3;
+    EVENT_CLOUDLET_STATE = 4;
+    EVENT_CLOUDLET_MAINTENANCE = 5;
+    EVENT_APPINST_HEALTH = 6;
+  }
+  ServerEventType event = 1;
+  // Cloudlet state information
+  enum CloudletState {
+    CLOUDLET_STATE_UNKNOWN = 0;
+    CLOUDLET_STATE_READY = 1;
+    CLOUDLET_OFFLINE = 2;
+    CLOUDLET_STATE_NOT_PRESENT = 3;
+    CLOUDLET_UPGRADE = 4;
+    CLOUDLET_STATE_ERRORS = 5;
+    CLOUDLET_STATE_INIT = 6;
+  }
+  CloudletState cloudlet_state = 2;
+  // Cloudlet maintenance state information
+  enum CloudletMaintenanceState {
+    MAINTENANCE_STATE_UNKNOWN = 0;
+    MAINTENANCE_STATE_NORMAL = 1;
+    MAINTENANCE_STATE_UNDER_MAINTENANCE = 2;
+    MAINTENANCE_STATE_MAINTENANCE_FAILED = 3;
+    MAINTENANCE_STATE_FAILING_OVER = 4;
+    MAINTENANCE_STATE_FAILOVER_ERROR = 5;
+    MAINTENANCE_STATE_FAILOVER_DONE = 6;
+  }
+  CloudletMaintenanceState cloudlet_maintenance_state = 3;
+  // AppInst health state information
+  enum AppInstHealthState {
+    HEALTH_CHECK_UNKNOWN = 0;
+    HEALTH_CHECK_OK = 1;
+    HEALTH_CHECK_FAIL = 2;
+    APPINST_DOWN = 3;
+  }
+  AppInstHealthState appinst_health_state = 4;
+  // Summarized RTT Latency info from samples provided from client if ServerEventType is EVENT_LATENCY
+  Latency latency = 5;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
@@ -708,4 +782,5 @@ service MatchEngineApi {
       body: "*"
     };
   }
+  rpc StreamEdgeEvent(stream ClientEdgeEvent) returns (stream ServerEdgeEvent);
 }
