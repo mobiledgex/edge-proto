@@ -588,20 +588,20 @@ message QosPositionRequest{
 }
 
 message QosPositionKpiResult{
-    // as set by the client, must be unique within one QosPositionRequest
-    int64 positionid = 1;
-    // the location which was requested
-    Loc gps_location = 2;
-    // throughput
-    float dluserthroughput_min = 3;
-    float dluserthroughput_avg = 4;
-    float dluserthroughput_max = 5;
-    float uluserthroughput_min = 6;
-    float uluserthroughput_avg = 7;
-    float uluserthroughput_max = 8;
-    float latency_min = 9;
-    float latency_avg = 10;
-    float latency_max = 11;
+  // as set by the client, must be unique within one QosPositionRequest
+  int64 positionid = 1;
+  // the location which was requested
+  Loc gps_location = 2;
+  // throughput
+  float dluserthroughput_min = 3;
+  float dluserthroughput_avg = 4;
+  float dluserthroughput_max = 5;
+  float uluserthroughput_min = 6;
+  float uluserthroughput_avg = 7;
+  float uluserthroughput_max = 8;
+  float latency_min = 9;
+  float latency_avg = 10;
+  float latency_max = 11;
 }
 
 message QosPositionKpiReply{
@@ -617,6 +617,27 @@ message QosPositionKpiReply{
   repeated QosPositionKpiResult position_results = 3;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
+}
+
+// Messages from SDK to DME
+message ClientEdgeEvent {
+  string session_cookie = 1;
+  Timestamp timestamp = 2;
+  Event event = 3;
+  Loc gps_location = 4;
+  bool terminate = 6;
+  // _(optional)_ Vendor specific data
+  repeated Tag tags = 99;
+}
+
+// Message from DME to SDK
+message ServerEdgeEvent {
+  Timestamp timestamp = 1;
+  Event event = 2;
+  uint32 latency = 3;
+  string msg = 4;
+  // _(optional)_ Vendor specific data
+  repeated Tag tags = 99;
 }
 
 service MatchEngineApi {
@@ -708,4 +729,5 @@ service MatchEngineApi {
       body: "*"
     };
   }
+  rpc SendEdgeEvent(stream ClientEdgeEvent) returns (stream ServerEdgeEvent);
 }
