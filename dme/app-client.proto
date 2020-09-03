@@ -225,6 +225,8 @@ message FindCloudletReply {
   repeated AppPort ports = 4;
   // Location of the cloudlet
   Loc cloudlet_location = 5;
+  // Session Cookie for specific EdgeEvents for specific AppInst
+  string edge_events_cookie = 6;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
@@ -622,9 +624,10 @@ message QosPositionKpiReply{
 // Messages from SDK to DME
 message ClientEdgeEvent {
   string session_cookie = 1;
-  Timestamp timestamp = 2;
-  Event event = 3;
-  Loc gps_location = 4;
+  string ee_cookie = 2;
+  Timestamp timestamp = 3;
+  Event event = 4;
+  Loc gps_location = 5;
   bool terminate = 6;
   // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
@@ -634,7 +637,7 @@ message ClientEdgeEvent {
 message ServerEdgeEvent {
   Timestamp timestamp = 1;
   Event event = 2;
-  uint32 latency = 3;
+  Latency latency = 3;
   string msg = 4;
   // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
