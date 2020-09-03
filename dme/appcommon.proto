@@ -33,3 +33,12 @@ message AppPort {
   // use nginx proxy for this port if you really need a transparent proxy (udp only)
   bool nginx = 8;
 }
+
+// Latency
+message Latency {
+  double avg = 1;
+  double min = 2;
+  double max = 3;
+  double std_dev = 4;
+  uint64 num_samples = 5;
+}
