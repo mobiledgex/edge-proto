@@ -626,8 +626,9 @@ message ClientEdgeEvent {
   string session_cookie = 1;
   string ee_cookie = 2;
   Timestamp timestamp = 3;
-  Loc gps_location = 4;
-  bool terminate = 5;
+  bool pong = 4;
+  Loc gps_location = 5;
+  bool terminate = 6;
   // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
@@ -635,6 +636,7 @@ message ClientEdgeEvent {
 // Message from DME to SDK
 message ServerEdgeEvent {
   Timestamp timestamp = 1;
+  bool ping = 2;
 
   enum CloudletState {
     CLOUDLET_STATE_UNKNOWN = 0;
@@ -645,7 +647,7 @@ message ServerEdgeEvent {
     CLOUDLET_STATE_ERRORS = 5;
     CLOUDLET_STATE_INIT = 6;
   }
-  CloudletState cloudlet_state = 2;
+  CloudletState cloudlet_state = 3;
  
   enum CloudletMaintenanceState {
     MAINTENANCE_STATE_UNKNOWN = 0;
@@ -656,17 +658,18 @@ message ServerEdgeEvent {
     MAINTENANCE_STATE_FAILOVER_ERROR = 5;
     MAINTENANCE_STATE_FAILOVER_DONE = 6;
   }
-  CloudletMaintenanceState cloudlet_maintenance_state = 3;
+  CloudletMaintenanceState cloudlet_maintenance_state = 4;
 
   enum AppInstHealthState {
     HEALTH_CHECK_UNKNOWN = 0;
     HEALTH_CHECK_OK = 1;
     HEALTH_CHECK_FAIL = 2;
+    APPINST_DOWN = 3;
   }
-  AppInstHealthState appinst_health_state = 4;
+  AppInstHealthState appinst_health_state = 5;
 
-  bool latency_requested = 5;
-  Latency latency = 6;
+  bool latency_requested = 6;
+  Latency latency = 7;
   // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
