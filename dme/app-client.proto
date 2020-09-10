@@ -629,6 +629,12 @@ message ClientEdgeEvent {
   bool pong = 4;
   Loc gps_location = 5;
   bool terminate = 6;
+  
+  bool hping = 7;
+  Latency latency = 8;
+
+  double rtt = 9;
+  int32 iteration = 10;
   // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
@@ -670,6 +676,9 @@ message ServerEdgeEvent {
 
   bool latency_requested = 6;
   Latency latency = 7;
+
+  bool hping_requested = 8;
+  int32 iteration = 9;
   // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
