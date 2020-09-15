@@ -34,3 +34,11 @@ message AppPort {
   // TLS termination for this port
   bool tls = 7;
 }
+
+// Latency
+message Latency {
+  double avg = 1;
+  double min = 2;
+  double max = 3;
+  double std_dev = 4;
+}
