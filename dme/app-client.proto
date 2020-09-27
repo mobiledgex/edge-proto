@@ -629,9 +629,9 @@ message ClientEdgeEvent {
   string edge_events_cookie = 2;
   EventType event = 3;
   // GPS Location info if EventType is EVENT_LOCATION_UPDATE
-  Loc gps_location =4;
-  // RTT Latency info from Client to AppInst/DME if EventType is EVENT_LATENCY
-  Latency latency = 5;
+  Loc gps_location = 4;
+  // Latency Samples if EventType is EVENT_LATENCY_REQUEST
+  repeated double samples = 5;
   // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
@@ -669,6 +669,8 @@ message ServerEdgeEvent {
     APPINST_DOWN = 3;
   }
   AppInstHealthState appinst_health_state = 4;
+  // Summarized RTT Latency info from samples provided from client if EventType is EVENT_LATENCY
+  Latency latency = 5;
   // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
 }
