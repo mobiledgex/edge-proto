@@ -627,10 +627,17 @@ message ClientEdgeEvent {
   string session_cookie = 1;
   // Session Cookie from FindCloudletReply 
   string edge_events_cookie = 2;
-  EventType event = 3;
+  enum ClientEventType {
+    EVENT_UNKNOWN = 0;
+    EVENT_INIT_CONNECTION = 1;
+    EVENT_TERMINATE_CONNECTION = 2;
+    EVENT_LATENCY_SAMPLES = 3;
+    EVENT_LOCATION_UPDATE = 4;
+  }
+  ClientEventType event = 3;
   // GPS Location info if EventType is EVENT_LOCATION_UPDATE
   Loc gps_location = 4;
-  // Latency Samples if EventType is EVENT_LATENCY_REQUEST
+  // Latency Samples if EventType is EVENT_LATENCY_SAMPLES
   repeated double samples = 5;
   // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
@@ -638,7 +645,16 @@ message ClientEdgeEvent {
 
 // Message from DME to SDK
 message ServerEdgeEvent {
-  EventType event = 1;
+  enum ServerEventType {
+    EVENT_UNKNOWN = 0;
+    EVENT_INIT_CONNECTION = 1;
+    EVENT_LATENCY_REQUEST = 2;
+    EVENT_LATENCY_PROCESSED = 3;
+    EVENT_CLOUDLET_STATE = 4;
+    EVENT_CLOUDLET_MAINTENANCE = 5;
+    EVENT_APPINST_HEALTH = 6;
+  }
+  ServerEventType event = 1;
   // Cloudlet state information
   enum CloudletState {
     CLOUDLET_STATE_UNKNOWN = 0;
@@ -669,7 +685,7 @@ message ServerEdgeEvent {
     APPINST_DOWN = 3;
   }
   AppInstHealthState appinst_health_state = 4;
-  // Summarized RTT Latency info from samples provided from client if EventType is EVENT_LATENCY
+  // Summarized RTT Latency info from samples provided from client if ServerEventType is EVENT_LATENCY
   Latency latency = 5;
   // _(optional)_ Vendor specific data
   repeated Tag tags = 99;
