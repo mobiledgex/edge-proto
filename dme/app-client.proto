@@ -82,7 +82,7 @@ message RegisterClientRequest {
    *
    * _(optional)_ Vendor specific data
    */
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message RegisterClientReply {
@@ -128,7 +128,7 @@ message RegisterClientReply {
    *
    * _(optional)_ Array of Tags.
    */
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message FindCloudletRequest {
@@ -168,7 +168,7 @@ message FindCloudletRequest {
    *
    * _(optional)_ Vendor specific data
    */
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message PlatformFindCloudletRequest {
@@ -202,7 +202,7 @@ message PlatformFindCloudletRequest {
    *
    * _(optional)_ Vendor specific data
    */
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message FindCloudletReply {
@@ -226,7 +226,7 @@ message FindCloudletReply {
   // Location of the cloudlet
   Loc cloudlet_location = 5;
   // _(optional)_ Vendor specific data
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message VerifyLocationRequest {
@@ -271,7 +271,7 @@ message VerifyLocationRequest {
    *
    * _(optional)_ Vendor specific data
    */
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message VerifyLocationReply {
@@ -304,7 +304,7 @@ message VerifyLocationReply {
   // means no verification was performed
   double gps_location_accuracy_km = 4;
   // _(optional)_ Vendor specific data
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message GetLocationRequest {
@@ -321,7 +321,7 @@ message GetLocationRequest {
   // _(optional)_ Cell id where the client is
   uint32 cell_id = 4;
   // _(optional)_ Vendor specific data
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message GetLocationReply {
@@ -346,7 +346,7 @@ message GetLocationReply {
   // The GPS location of the user
   Loc network_location = 5;
   // _(optional)_ Vendor specific data
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message AppInstListRequest {
@@ -372,7 +372,7 @@ message AppInstListRequest {
   // _(optional)_ Limit the number of results, defaults to 3
   uint32 limit = 6;
   // _(optional)_ Vendor specific data
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message Appinstance{
@@ -417,7 +417,7 @@ message AppInstListReply {
   AIStatus status = 2;
   repeated CloudletLocation cloudlets = 3;
   // _(optional)_ Vendor specific data
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message FqdnListRequest {
@@ -432,7 +432,7 @@ message FqdnListRequest {
   // _(optional)_ Cell id where the client is
   uint32 cell_id = 3;
   // _(optional)_ Vendor specific data
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message AppFqdn{
@@ -464,7 +464,7 @@ message FqdnListReply{
   repeated AppFqdn app_fqdns = 3;
   FLStatus status = 4;
   // _(optional)_ Vendor specific data
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message AppOfficialFqdnRequest {
@@ -479,7 +479,7 @@ message AppOfficialFqdnRequest {
   // The GPS location of the user
   Loc gps_location = 3;
   // _(optional)_ Vendor specific data
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message AppOfficialFqdnReply{
@@ -503,7 +503,7 @@ message AppOfficialFqdnReply{
   // List of Service Endpoints for AppInst
   repeated AppPort ports = 5;
   // _(optional)_ Vendor specific data
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message DynamicLocGroupRequest {
@@ -529,7 +529,7 @@ message DynamicLocGroupRequest {
   // _(optional)_ Cell id where the client is
   uint32 cell_id = 13;
   // _(optional)_ Vendor specific data
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message DynamicLocGroupReply {
@@ -546,7 +546,7 @@ message DynamicLocGroupReply {
   // Group Cookie for Secure Group Communication
   string group_cookie = 5;
   // _(optional)_ Vendor specific data
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message QosPosition{
@@ -584,7 +584,7 @@ message QosPositionRequest{
   // _(optional)_ Cell id where the client is
   uint32 cell_id = 6;
   // _(optional)_ Vendor specific data
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 message QosPositionKpiResult{
@@ -616,7 +616,7 @@ message QosPositionKpiReply{
   // kpi details
   repeated QosPositionKpiResult position_results = 3;
   // _(optional)_ Vendor specific data
-  map<string, string> tags = 99;
+  map<string, string> tags = 100;
 }
 
 service MatchEngineApi {
