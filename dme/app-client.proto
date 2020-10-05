@@ -227,6 +227,8 @@ message FindCloudletReply {
   Loc cloudlet_location = 5;
   // Session Cookie for specific EdgeEvents for specific AppInst
   string edge_events_cookie = 6;
+  // Fully Qualified Domain Name of the DME on the cloudlet for specified AppInst
+  string dme_fqdn = 7;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
@@ -640,7 +642,7 @@ message ClientEdgeEvent {
   // Latency Samples if EventType is EVENT_LATENCY_SAMPLES
   repeated double samples = 5;
   // _(optional)_ Vendor specific data
-  repeated Tag tags = 99;
+  map<string, string> tags = 100;
 }
 
 // Message from DME to SDK
@@ -688,7 +690,7 @@ message ServerEdgeEvent {
   // Summarized RTT Latency info from samples provided from client if ServerEventType is EVENT_LATENCY
   Latency latency = 5;
   // _(optional)_ Vendor specific data
-  repeated Tag tags = 99;
+  map<string, string> tags = 100;
 }
 
 service MatchEngineApi {
@@ -780,5 +782,5 @@ service MatchEngineApi {
       body: "*"
     };
   }
-  rpc SendEdgeEvent(stream ClientEdgeEvent) returns (stream ServerEdgeEvent);
+  rpc StreamEdgeEvent(stream ClientEdgeEvent) returns (stream ServerEdgeEvent);
 }
