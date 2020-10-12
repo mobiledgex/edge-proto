@@ -39,6 +39,9 @@ message Latency {
   double avg = 1;
   double min = 2;
   double max = 3;
+  // Unbiased standard deviation
   double std_dev = 4;
-  uint64 num_samples = 5;
+  // Unbiased variance
+  double variance = 5;
+  uint64 num_samples = 6;
 }
