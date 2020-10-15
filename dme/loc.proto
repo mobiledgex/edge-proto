@@ -43,7 +43,7 @@ message Latency {
   double avg = 1;
   double min = 2;
   double max = 3;
-  // Unbiased standard deviation
+  // Square root of unbiased variance
   double std_dev = 4;
   // Unbiased variance
   double variance = 5;
