@@ -658,35 +658,11 @@ message ServerEdgeEvent {
   }
   ServerEventType event = 1;
   // Cloudlet state information
-  enum CloudletState {
-    CLOUDLET_STATE_UNKNOWN = 0;
-    CLOUDLET_STATE_READY = 1;
-    CLOUDLET_OFFLINE = 2;
-    CLOUDLET_STATE_NOT_PRESENT = 3;
-    CLOUDLET_UPGRADE = 4;
-    CLOUDLET_STATE_ERRORS = 5;
-    CLOUDLET_STATE_INIT = 6;
-  }
   CloudletState cloudlet_state = 2;
   // Cloudlet maintenance state information
-  enum CloudletMaintenanceState {
-    MAINTENANCE_STATE_UNKNOWN = 0;
-    MAINTENANCE_STATE_NORMAL = 1;
-    MAINTENANCE_STATE_UNDER_MAINTENANCE = 2;
-    MAINTENANCE_STATE_MAINTENANCE_FAILED = 3;
-    MAINTENANCE_STATE_FAILING_OVER = 4;
-    MAINTENANCE_STATE_FAILOVER_ERROR = 5;
-    MAINTENANCE_STATE_FAILOVER_DONE = 6;
-  }
-  CloudletMaintenanceState cloudlet_maintenance_state = 3;
+  MaintenanceState maintenance_state = 3;
   // AppInst health state information
-  enum AppInstHealthState {
-    HEALTH_CHECK_UNKNOWN = 0;
-    HEALTH_CHECK_OK = 1;
-    HEALTH_CHECK_FAIL = 2;
-    APPINST_DOWN = 3;
-  }
-  AppInstHealthState appinst_health_state = 4;
+  HealthCheck health_check = 4;
   // Summarized RTT Latency info from samples provided from client if ServerEventType is EVENT_LATENCY
   Latency latency = 5;
   // _(optional)_ Vendor specific data
