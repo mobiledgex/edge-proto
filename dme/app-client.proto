@@ -636,7 +636,7 @@ message ClientEdgeEvent {
     EVENT_LATENCY_SAMPLES = 3;
     EVENT_LOCATION_UPDATE = 4;
   }
-  ClientEventType event = 3;
+  ClientEventType event_type = 3;
   // GPS Location info if EventType is EVENT_LOCATION_UPDATE
   Loc gps_location = 4;
   // Latency Samples if EventType is EVENT_LATENCY_SAMPLES
@@ -656,7 +656,7 @@ message ServerEdgeEvent {
     EVENT_CLOUDLET_MAINTENANCE = 5;
     EVENT_APPINST_HEALTH = 6;
   }
-  ServerEventType event = 1;
+  ServerEventType event_type = 1;
   // Cloudlet state information
   CloudletState cloudlet_state = 2;
   // Cloudlet maintenance state information
