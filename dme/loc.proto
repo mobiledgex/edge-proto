@@ -48,7 +48,5 @@ message Latency {
   // Unbiased variance
   double variance = 5;
   uint64 num_samples = 6;
-  // Number of unique clients contributing to latency statistics
-  uint64 num_clients = 7;
-  Timestamp timestamp = 8;
+  Timestamp timestamp = 7;
 }
