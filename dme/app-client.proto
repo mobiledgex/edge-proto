@@ -640,7 +640,7 @@ message ClientEdgeEvent {
   // GPS Location info if EventType is EVENT_LOCATION_UPDATE
   Loc gps_location = 4;
   // Latency Samples if EventType is EVENT_LATENCY_SAMPLES
-  repeated double samples = 5;
+  repeated Sample samples = 5;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }

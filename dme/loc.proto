@@ -38,6 +38,23 @@ message Loc {
   Timestamp timestamp = 8;
 }
 
+/*
+ * Latency Sample
+ */
+message Sample {
+  // latency value
+  double value = 1;
+  // gps location
+  Loc loc = 2;
+  // session cookie to differentiate clients
+  string session_cookie = 4;
+  // LTE, 5G, etc.
+  string data_network_type = 5;
+  Timestamp timestamp = 3;
+  // _(optional)_ Vendor specific data
+  map<string, string> tags = 100;
+}
+
 // Latency
 message Latency {
   double avg = 1;
