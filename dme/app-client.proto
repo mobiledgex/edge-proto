@@ -637,10 +637,12 @@ message ClientEdgeEvent {
     EVENT_LOCATION_UPDATE = 4;
   }
   ClientEventType event_type = 3;
-  // GPS Location info if EventType is EVENT_LOCATION_UPDATE
+  // GPS Location info if event_type is EVENT_LOCATION_UPDATE
   Loc gps_location = 4;
-  // Latency Samples if EventType is EVENT_LATENCY_SAMPLES
+  // Latency Samples if event_type is EVENT_LATENCY_SAMPLES
   repeated Sample samples = 5;
+  // Carrier name used to find closer cloudlet if event_type is EVENT_LOCATION_UPDATE
+  string carrier_name = 6;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
@@ -655,6 +657,7 @@ message ServerEdgeEvent {
     EVENT_CLOUDLET_STATE = 4;
     EVENT_CLOUDLET_MAINTENANCE = 5;
     EVENT_APPINST_HEALTH = 6;
+    EVENT_CLOUDLET_UPDATE = 7;
   }
   ServerEventType event_type = 1;
   // Cloudlet state information
@@ -663,8 +666,10 @@ message ServerEdgeEvent {
   MaintenanceState maintenance_state = 3;
   // AppInst health state information
   HealthCheck health_check = 4;
-  // Summarized RTT Latency info from samples provided from client if ServerEventType is EVENT_LATENCY
+  // Summarized RTT Latency info from samples provided from client if event_type is EVENT_LATENCY
   Latency latency = 5;
+  // New and closer cloudlet if event_type is EVENT_CLOUDLET_UPDATE
+  FindCloudletReply new_cloudlet = 6;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
