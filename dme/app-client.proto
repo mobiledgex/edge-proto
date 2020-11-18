@@ -643,6 +643,8 @@ message ClientEdgeEvent {
   repeated Sample samples = 5;
   // Carrier name used to find closer cloudlet if event_type is EVENT_LOCATION_UPDATE
   string carrier_name = 6;
+  // LTE, 5G, etc.
+  string data_network_type = 7;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
