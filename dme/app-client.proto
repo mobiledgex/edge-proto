@@ -227,8 +227,6 @@ message FindCloudletReply {
   Loc cloudlet_location = 5;
   // Session Cookie for specific EdgeEvents for specific AppInst
   string edge_events_cookie = 6;
-  // Fully Qualified Domain Name of the DME on the cloudlet for specified AppInst
-  string dme_fqdn = 7;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
@@ -637,14 +635,16 @@ message ClientEdgeEvent {
     EVENT_LOCATION_UPDATE = 4;
   }
   ClientEventType event_type = 3;
-  // GPS Location info if event_type is EVENT_LOCATION_UPDATE
+  // GPS Location info if event_type is EVENT_LOCATION_UPDATE or EVENT_LATENCY_SAMPLES
   Loc gps_location = 4;
   // Latency Samples if event_type is EVENT_LATENCY_SAMPLES
   repeated Sample samples = 5;
-  // Carrier name used to find closer cloudlet if event_type is EVENT_LOCATION_UPDATE
+  // Carrier name for EVENT_LATENCY_SAMPLES or EVENT_LOCATION_UPDATE (can be different from cloudlet org if used "")
   string carrier_name = 6;
-  // LTE, 5G, etc.
+  // LTE, 5G, etc. for EVENT_LATENCY_SAMPLES
   string data_network_type = 7;
+  // Android or iOS for EVENT_LATENCY_SAMPLES
+  string device_os = 8;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
