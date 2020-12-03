@@ -643,7 +643,7 @@ message ClientEdgeEvent {
   string carrier_name = 6;
   // LTE, 5G, etc. for EVENT_LATENCY_SAMPLES
   string data_network_type = 7;
-  // Android or iOS for EVENT_LATENCY_SAMPLES
+  // Android or iOS for EVENT_LOCATION_UPDATE
   string device_os = 8;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
