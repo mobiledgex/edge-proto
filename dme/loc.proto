@@ -49,8 +49,8 @@ message Sample {
   map<string, string> tags = 100;
 }
 
-// Latency
-message Latency {
+// Statistics
+message Statistics {
   double avg = 1;
   double min = 2;
   double max = 3;
