@@ -633,6 +633,7 @@ message ClientEdgeEvent {
     EVENT_TERMINATE_CONNECTION = 2;
     EVENT_LATENCY_SAMPLES = 3;
     EVENT_LOCATION_UPDATE = 4;
+    EVENT_CUSTOM_EVENT = 5;
   }
   ClientEventType event_type = 3;
   // GPS Location info if event_type is EVENT_LOCATION_UPDATE or EVENT_LATENCY_SAMPLES
@@ -645,8 +646,20 @@ message ClientEdgeEvent {
   string data_network_type = 7;
   // Android or iOS for EVENT_LOCATION_UPDATE
   string device_os = 8;
+  // Device model for EVENT_LOCATION_UPDATE
+  string device_model = 9;
+  // Custom event specified by the application
+  CustomEdgeEvent custom_event = 10;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
+}
+
+// TODO: PUT PARAMS IN TAGS???
+
+message CustomEdgeEvent {
+  string name = 1;
+  // Will calculate average, min, max, std dev stats if data is provided
+  double data = 2;
 }
 
 // Message from DME to SDK
@@ -668,8 +681,8 @@ message ServerEdgeEvent {
   MaintenanceState maintenance_state = 3;
   // AppInst health state information
   HealthCheck health_check = 4;
-  // Summarized RTT Latency info from samples provided from client if event_type is EVENT_LATENCY
-  Latency latency = 5;
+  // Summarized RTT Latency statis from samples provided from client if event_type is EVENT_LATENCY
+  Statistics statistics = 5;
   // New and closer cloudlet if event_type is EVENT_CLOUDLET_UPDATE
   FindCloudletReply new_cloudlet = 6;
   // _(optional)_ Vendor specific data
@@ -765,5 +778,10 @@ service MatchEngineApi {
       body: "*"
     };
   }
-  rpc StreamEdgeEvent(stream ClientEdgeEvent) returns (stream ServerEdgeEvent);
+  rpc StreamEdgeEvent(stream ClientEdgeEvent) returns (stream ServerEdgeEvent) {
+    option (google.api.http) = {
+      post: "/v1/streamedgeevent"
+      body: "*"
+    };
+  }
 }
