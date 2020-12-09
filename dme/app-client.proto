@@ -655,7 +655,7 @@ message ClientEdgeEvent {
 }
 
 message CustomEdgeEvent {
-  string name = 1;
+  string event_type = 1;
   // Will calculate average, min, max, std dev stats if data is provided
   double data = 2;
 }
