@@ -44,6 +44,7 @@ message Loc {
 message Sample {
   // latency value
   double value = 1;
+  // timestamp
   Timestamp timestamp = 2;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
