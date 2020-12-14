@@ -638,7 +638,7 @@ message ClientEdgeEvent {
   ClientEventType event_type = 3;
   // GPS Location info if event_type is EVENT_LOCATION_UPDATE or EVENT_LATENCY_SAMPLES
   Loc gps_location = 4;
-  // Latency Samples if event_type is EVENT_LATENCY_SAMPLES
+  // Latency Samples if event_type is EVENT_LATENCY_SAMPLES or EVENT_CUSTOM_EVENT
   repeated Sample samples = 5;
   // Carrier name for EVENT_LATENCY_SAMPLES or EVENT_LOCATION_UPDATE (can be different from cloudlet org if used "")
   string carrier_name = 6;
@@ -649,15 +649,9 @@ message ClientEdgeEvent {
   // Device model for EVENT_LOCATION_UPDATE
   string device_model = 9;
   // Custom event specified by the application
-  CustomEdgeEvent custom_event = 10;
+  string custom_event = 10;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
-}
-
-message CustomEdgeEvent {
-  string event_type = 1;
-  // Will calculate average, min, max, std dev stats if data is provided
-  double data = 2;
 }
 
 // Message from DME to SDK
