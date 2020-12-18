@@ -106,3 +106,17 @@ enum MaintenanceState {
   // Under maintenance
   UNDER_MAINTENANCE = 31 [(enum_backend) = true];
 }
+
+/*
+ * DeviceInfo
+ */
+ message DeviceInfo {
+   // LTE, 5G, etc.
+  string data_network_type = 1;
+  // Android or iOS
+  string device_os = 2;
+  // Device model
+  string device_model = 3;
+  // Device signal strength (0-5)
+  uint32 signal_strength = 4;
+}
