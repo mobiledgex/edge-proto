@@ -164,6 +164,12 @@ message FindCloudletRequest {
    */
   uint32 cell_id = 8;
   /*
+   * Device Info
+   *
+   * _(optional)_ Device information for stats
+   */
+  DeviceInfo device_info = 7;
+  /*
    * Tags
    *
    * _(optional)_ Vendor specific data
@@ -642,14 +648,10 @@ message ClientEdgeEvent {
   repeated Sample samples = 5;
   // Carrier name for EVENT_LATENCY_SAMPLES or EVENT_LOCATION_UPDATE (can be different from cloudlet org if used "")
   string carrier_name = 6;
-  // LTE, 5G, etc. for EVENT_LATENCY_SAMPLES
-  string data_network_type = 7;
-  // Android or iOS for EVENT_LOCATION_UPDATE
-  string device_os = 8;
-  // Device model for EVENT_LOCATION_UPDATE
-  string device_model = 9;
+  // Device information for stats
+  DeviceInfo device_info = 7;
   // Custom event specified by the application
-  string custom_event = 10;
+  string custom_event = 8;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
