@@ -164,6 +164,12 @@ message FindCloudletRequest {
    */
   uint32 cell_id = 8;
   /*
+   * Device Info
+   *
+   * _(optional)_ Device information for stats
+   */
+  DeviceInfo device_info = 7;
+  /*
    * Tags
    *
    * _(optional)_ Vendor specific data
@@ -227,8 +233,6 @@ message FindCloudletReply {
   Loc cloudlet_location = 5;
   // Session Cookie for specific EdgeEvents for specific AppInst
   string edge_events_cookie = 6;
-  // Fully Qualified Domain Name of the DME on the cloudlet for specified AppInst
-  string dme_fqdn = 7;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
@@ -635,12 +639,19 @@ message ClientEdgeEvent {
     EVENT_TERMINATE_CONNECTION = 2;
     EVENT_LATENCY_SAMPLES = 3;
     EVENT_LOCATION_UPDATE = 4;
+    EVENT_CUSTOM_EVENT = 5;
   }
   ClientEventType event_type = 3;
-  // GPS Location info if EventType is EVENT_LOCATION_UPDATE
+  // GPS Location info if event_type is EVENT_LOCATION_UPDATE or EVENT_LATENCY_SAMPLES
   Loc gps_location = 4;
-  // Latency Samples if EventType is EVENT_LATENCY_SAMPLES
-  repeated double samples = 5;
+  // Latency Samples if event_type is EVENT_LATENCY_SAMPLES or EVENT_CUSTOM_EVENT
+  repeated Sample samples = 5;
+  // Carrier name for EVENT_LATENCY_SAMPLES or EVENT_LOCATION_UPDATE (can be different from cloudlet org if used "")
+  string carrier_name = 6;
+  // Device information for stats
+  DeviceInfo device_info = 7;
+  // Custom event specified by the application
+  string custom_event = 8;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
@@ -655,6 +666,7 @@ message ServerEdgeEvent {
     EVENT_CLOUDLET_STATE = 4;
     EVENT_CLOUDLET_MAINTENANCE = 5;
     EVENT_APPINST_HEALTH = 6;
+    EVENT_CLOUDLET_UPDATE = 7;
   }
   ServerEventType event_type = 1;
   // Cloudlet state information
@@ -663,8 +675,10 @@ message ServerEdgeEvent {
   MaintenanceState maintenance_state = 3;
   // AppInst health state information
   HealthCheck health_check = 4;
-  // Summarized RTT Latency info from samples provided from client if ServerEventType is EVENT_LATENCY
-  Latency latency = 5;
+  // Summarized RTT Latency statis from samples provided from client if event_type is EVENT_LATENCY
+  Statistics statistics = 5;
+  // New and closer cloudlet if event_type is EVENT_CLOUDLET_UPDATE
+  FindCloudletReply new_cloudlet = 6;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
@@ -758,5 +772,10 @@ service MatchEngineApi {
       body: "*"
     };
   }
-  rpc StreamEdgeEvent(stream ClientEdgeEvent) returns (stream ServerEdgeEvent);
+  rpc StreamEdgeEvent(stream ClientEdgeEvent) returns (stream ServerEdgeEvent) {
+    option (google.api.http) = {
+      post: "/v1/streamedgeevent"
+      body: "*"
+    };
+  }
 }
