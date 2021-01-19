@@ -164,6 +164,12 @@ message FindCloudletRequest {
    */
   uint32 cell_id = 8;
   /*
+   * Device Info
+   *
+   * _(optional)_ Device information for stats
+   */
+  DeviceInfo device_info = 7;
+  /*
    * Tags
    *
    * _(optional)_ Vendor specific data
@@ -225,6 +231,8 @@ message FindCloudletReply {
   repeated AppPort ports = 4;
   // Location of the cloudlet
   Loc cloudlet_location = 5;
+  // Session Cookie for specific EdgeEvents for specific AppInst
+  string edge_events_cookie = 6;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
@@ -588,20 +596,20 @@ message QosPositionRequest{
 }
 
 message QosPositionKpiResult{
-    // as set by the client, must be unique within one QosPositionRequest
-    int64 positionid = 1;
-    // the location which was requested
-    Loc gps_location = 2;
-    // throughput
-    float dluserthroughput_min = 3;
-    float dluserthroughput_avg = 4;
-    float dluserthroughput_max = 5;
-    float uluserthroughput_min = 6;
-    float uluserthroughput_avg = 7;
-    float uluserthroughput_max = 8;
-    float latency_min = 9;
-    float latency_avg = 10;
-    float latency_max = 11;
+  // as set by the client, must be unique within one QosPositionRequest
+  int64 positionid = 1;
+  // the location which was requested
+  Loc gps_location = 2;
+  // throughput
+  float dluserthroughput_min = 3;
+  float dluserthroughput_avg = 4;
+  float dluserthroughput_max = 5;
+  float uluserthroughput_min = 6;
+  float uluserthroughput_avg = 7;
+  float uluserthroughput_max = 8;
+  float latency_min = 9;
+  float latency_avg = 10;
+  float latency_max = 11;
 }
 
 message QosPositionKpiReply{
@@ -615,6 +623,62 @@ message QosPositionKpiReply{
   ReplyStatus status = 2;
   // kpi details
   repeated QosPositionKpiResult position_results = 3;
+  // _(optional)_ Vendor specific data
+  map<string, string> tags = 100;
+}
+
+// Messages from SDK to DME
+message ClientEdgeEvent {
+  // Session Cookie from RegisterClientReply
+  string session_cookie = 1;
+  // Session Cookie from FindCloudletReply 
+  string edge_events_cookie = 2;
+  enum ClientEventType {
+    EVENT_UNKNOWN = 0;
+    EVENT_INIT_CONNECTION = 1;
+    EVENT_TERMINATE_CONNECTION = 2;
+    EVENT_LATENCY_SAMPLES = 3;
+    EVENT_LOCATION_UPDATE = 4;
+    EVENT_CUSTOM_EVENT = 5;
+  }
+  ClientEventType event_type = 3;
+  // GPS Location info if event_type is EVENT_LOCATION_UPDATE or EVENT_LATENCY_SAMPLES
+  Loc gps_location = 4;
+  // Latency Samples if event_type is EVENT_LATENCY_SAMPLES or EVENT_CUSTOM_EVENT
+  repeated Sample samples = 5;
+  // Carrier name for EVENT_LATENCY_SAMPLES or EVENT_LOCATION_UPDATE (can be different from cloudlet org if used "")
+  string carrier_name = 6;
+  // Device information for stats
+  DeviceInfo device_info = 7;
+  // Custom event specified by the application
+  string custom_event = 8;
+  // _(optional)_ Vendor specific data
+  map<string, string> tags = 100;
+}
+
+// Message from DME to SDK
+message ServerEdgeEvent {
+  enum ServerEventType {
+    EVENT_UNKNOWN = 0;
+    EVENT_INIT_CONNECTION = 1;
+    EVENT_LATENCY_REQUEST = 2;
+    EVENT_LATENCY_PROCESSED = 3;
+    EVENT_CLOUDLET_STATE = 4;
+    EVENT_CLOUDLET_MAINTENANCE = 5;
+    EVENT_APPINST_HEALTH = 6;
+    EVENT_CLOUDLET_UPDATE = 7;
+  }
+  ServerEventType event_type = 1;
+  // Cloudlet state information
+  CloudletState cloudlet_state = 2;
+  // Cloudlet maintenance state information
+  MaintenanceState maintenance_state = 3;
+  // AppInst health state information
+  HealthCheck health_check = 4;
+  // Summarized RTT Latency statis from samples provided from client if event_type is EVENT_LATENCY
+  Statistics statistics = 5;
+  // New and closer cloudlet if event_type is EVENT_CLOUDLET_UPDATE
+  FindCloudletReply new_cloudlet = 6;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
@@ -705,6 +769,12 @@ service MatchEngineApi {
   rpc GetQosPositionKpi(QosPositionRequest) returns (stream QosPositionKpiReply) {
     option (google.api.http) = {
       post: "/v1/getqospositionkpi"
+      body: "*"
+    };
+  }
+  rpc StreamEdgeEvent(stream ClientEdgeEvent) returns (stream ServerEdgeEvent) {
+    option (google.api.http) = {
+      post: "/v1/streamedgeevent"
       body: "*"
     };
   }

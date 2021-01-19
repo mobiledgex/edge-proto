@@ -3,6 +3,14 @@
 syntax = "proto3";
 package distributed_match_engine;
 
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.EnumValueOptions {
+  // Backend defines a field that is filled in by the back-end,
+  // not by the user.
+  bool enum_backend = 51042;
+}
+
 // Layer4 Protocol
 //
 // LProto indicates which protocol to use for accessing an application on a particular port. This is required by Kubernetes for port mapping.
@@ -38,4 +46,83 @@ message AppPort {
   bool tls = 7;
   // use nginx proxy for this port if you really need a transparent proxy (udp only)
   bool nginx = 8;
+}
+
+// Health check status
+//
+// Health check status gets set by external, or rootLB health check
+enum HealthCheck {
+  // Health Check is unknown
+  HEALTH_CHECK_UNKNOWN = 0;
+  // Health Check failure due to RootLB being offline
+  HEALTH_CHECK_FAIL_ROOTLB_OFFLINE = 1;
+  // Health Check failure due to Backend server being unavailable
+  HEALTH_CHECK_FAIL_SERVER_FAIL = 2;
+  // Health Check is ok
+  HEALTH_CHECK_OK = 3;
+}
+
+// CloudletState is the state of the Cloudlet.
+enum CloudletState {
+  // Unknown
+  CLOUDLET_STATE_UNKNOWN = 0;
+  // Create/Delete/Update encountered errors (see Errors field of CloudletInfo)
+  CLOUDLET_STATE_ERRORS = 1;
+  // Cloudlet is created and ready
+  CLOUDLET_STATE_READY = 2;
+  // Cloudlet is offline (unreachable)
+  CLOUDLET_STATE_OFFLINE = 3;
+  // Cloudlet is not present
+  CLOUDLET_STATE_NOT_PRESENT = 4;
+  // Cloudlet is initializing
+  CLOUDLET_STATE_INIT = 5;
+  // Cloudlet is upgrading
+  CLOUDLET_STATE_UPGRADE = 6;
+  // Cloudlet needs data to synchronize
+  CLOUDLET_STATE_NEED_SYNC = 7;  
+}
+
+// Cloudlet Maintenance States
+//
+// Maintenance allows for planned downtimes of Cloudlets.
+// These states involve message exchanges between the Controller,
+// the AutoProv service, and the CRM. Certain states are only set
+// by certain actors.
+enum MaintenanceState {
+  // Normal operational state
+  NORMAL_OPERATION = 0;
+  // Request start of maintenance
+  MAINTENANCE_START = 1;
+  // Trigger failover for any HA AppInsts
+  FAILOVER_REQUESTED = 2 [(enum_backend) = true];
+  // Failover done
+  FAILOVER_DONE = 3 [(enum_backend) = true];
+  // Some errors encountered during maintenance failover
+  FAILOVER_ERROR = 4 [(enum_backend) = true];
+  // Request start of maintenance without AutoProv failover
+  MAINTENANCE_START_NO_FAILOVER = 5;
+  // Request CRM to transition to maintenance
+  CRM_REQUESTED = 6 [(enum_backend) = true];
+  // CRM request done and under maintenance
+  CRM_UNDER_MAINTENANCE = 7 [(enum_backend) = true];
+  // CRM failed to go into maintenance
+  CRM_ERROR = 8 [(enum_backend) = true];
+  // Request CRM to transition to normal operation
+  NORMAL_OPERATION_INIT = 9 [(enum_backend) = true];
+  // Under maintenance
+  UNDER_MAINTENANCE = 31 [(enum_backend) = true];
+}
+
+/*
+ * DeviceInfo
+ */
+ message DeviceInfo {
+   // LTE, 5G, etc.
+  string data_network_type = 1;
+  // Android or iOS
+  string device_os = 2;
+  // Device model
+  string device_model = 3;
+  // Device signal strength (0-5)
+  uint32 signal_strength = 4;
 }

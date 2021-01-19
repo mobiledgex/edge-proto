@@ -37,3 +37,33 @@ message Loc {
   // timestamp
   Timestamp timestamp = 8;
 }
+
+/*
+ * Sample
+ */
+ message Sample {
+  // latency value
+  double value = 1;
+  // timestamp
+  Timestamp timestamp = 2;
+  // _(optional)_ Vendor specific data
+  map<string, string> tags = 100;
+}
+
+// Statistics
+message Statistics {
+  // average
+  double avg = 1;
+  // minimum
+  double min = 2;
+  // maximum
+  double max = 3;
+  // square root of unbiased variance
+  double std_dev = 4;
+  // unbiased variance
+  double variance = 5;
+  // number of samples to create stats
+  uint64 num_samples = 6;
+  // timestamp
+  Timestamp timestamp = 7;
+}
