@@ -204,6 +204,12 @@ message PlatformFindCloudletRequest {
    */
   string client_token = 4;
   /*
+   * Device Info
+   *
+   * _(optional)_ Device information for stats
+   */
+   DeviceInfo device_info = 5;
+  /*
    * Tags
    *
    * _(optional)_ Vendor specific data
