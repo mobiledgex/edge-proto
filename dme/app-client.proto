@@ -400,6 +400,8 @@ message Appinstance{
   repeated AppPort ports = 4;
   // App Organization Name
   string org_name = 5;
+  // Session Cookie for specific EdgeEvents for specific AppInst
+  string edge_events_cookie = 6;
 }
 
 message CloudletLocation {
