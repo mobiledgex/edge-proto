@@ -400,6 +400,8 @@ message Appinstance{
   repeated AppPort ports = 4;
   // App Organization Name
   string org_name = 5;
+  // Session Cookie for specific EdgeEvents for specific AppInst
+  string edge_events_cookie = 6;
 }
 
 message CloudletLocation {
@@ -673,6 +675,7 @@ message ServerEdgeEvent {
     EVENT_CLOUDLET_MAINTENANCE = 5;
     EVENT_APPINST_HEALTH = 6;
     EVENT_CLOUDLET_UPDATE = 7;
+    EVENT_ERROR = 8;
   }
   ServerEventType event_type = 1;
   // Cloudlet state information
@@ -685,6 +688,8 @@ message ServerEdgeEvent {
   Statistics statistics = 5;
   // New and closer cloudlet if event_type is EVENT_CLOUDLET_UPDATE
   FindCloudletReply new_cloudlet = 6;
+  // Error message if event_type is EVENT_ERROR
+  string error_msg = 7;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
