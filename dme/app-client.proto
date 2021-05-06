@@ -164,12 +164,6 @@ message FindCloudletRequest {
    */
   uint32 cell_id = 8;
   /*
-   * Device Info
-   *
-   * _(optional)_ Device information for stats
-   */
-  DeviceInfo device_info = 7;
-  /*
    * Tags
    *
    * _(optional)_ Vendor specific data
@@ -203,12 +197,6 @@ message PlatformFindCloudletRequest {
    * Token with encoded client data
    */
   string client_token = 4;
-  /*
-   * Device Info
-   *
-   * _(optional)_ Device information for stats
-   */
-   DeviceInfo device_info = 5;
   /*
    * Tags
    *
@@ -650,14 +638,14 @@ message ClientEdgeEvent {
     EVENT_CUSTOM_EVENT = 5;
   }
   ClientEventType event_type = 3;
-  // GPS Location info if event_type is EVENT_LOCATION_UPDATE or EVENT_LATENCY_SAMPLES
+  // GPS Location info if event_type is EVENT_LOCATION_UPDATE or EVENT_LATENCY_SAMPLES. Also must be sent on EVENT_INIT_CONNECTION.
   Loc gps_location = 4;
   // Latency Samples if event_type is EVENT_LATENCY_SAMPLES or EVENT_CUSTOM_EVENT
   repeated Sample samples = 5;
-  // Carrier name for EVENT_LATENCY_SAMPLES or EVENT_LOCATION_UPDATE (can be different from cloudlet org if used "")
-  string carrier_name = 6;
-  // Device information for stats
-  DeviceInfo device_info = 7;
+  // Static device information for stats (must be sent on EVENT_INIT_CONNECTION if wanted for stats)
+  DeviceInfoStatic device_info_static = 6;
+  // Dynamic device information for stats (must be sent on EVENT_INIT_CONNECTION, and/or EVENT_LOCATION_UPDATE, and/or EVENT_LATENCY_SAMPLES if wanted for stats)
+  DeviceInfoDynamic device_info_dynamic = 7;
   // Custom event specified by the application
   string custom_event = 8;
   // _(optional)_ Vendor specific data
@@ -684,9 +672,12 @@ message ServerEdgeEvent {
   MaintenanceState maintenance_state = 3;
   // AppInst health state information
   HealthCheck health_check = 4;
-  // Summarized RTT Latency statis from samples provided from client if event_type is EVENT_LATENCY
+  // Summarized RTT Latency stats from samples provided from client if event_type is EVENT_LATENCY
   Statistics statistics = 5;
-  // New and closer cloudlet if event_type is EVENT_CLOUDLET_UPDATE
+  // New and closer cloudlet if event_type is EVENT_CLOUDLET_UPDATE. 
+  // Also sent on EVENT_CLOUDLET_STATE, if cloudlet_state != CLOUDLET_STATE_READY
+  // Also sent on EVENT_CLOUDLET_MAINTENANCE, if maintenance_state == UNDER_MAINTENANCE
+  // Also sent on EVENT_APPINST_HEALTH, if health_check != HEALTH_CHECK_OK && health_check != HEALTH_CHECK_UNKNOWN
   FindCloudletReply new_cloudlet = 6;
   // Error message if event_type is EVENT_ERROR
   string error_msg = 7;
