@@ -131,6 +131,6 @@ enum MaintenanceState {
  message DeviceInfoDynamic {
   // LTE, 5G, etc.
   string data_network_type = 1;
-  // Device signal strength (0-5) // TODO: WHAT VALUE SHOULD THIS BE???
+  // Device signal strength (0-5)
   uint64 signal_strength = 2;
 }
