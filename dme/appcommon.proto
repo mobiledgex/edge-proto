@@ -121,8 +121,6 @@ enum MaintenanceState {
   string device_os = 1;
   // Device model
   string device_model = 2;
-  // Carrier name (can be different from cloudlet org if using "")
-  string carrier_name = 3;
 }
 
 /*
@@ -133,4 +131,6 @@ enum MaintenanceState {
   string data_network_type = 1;
   // Device signal strength (0-5)
   uint64 signal_strength = 2;
+  // Carrier name (can be different from cloudlet org if using "")
+  string carrier_name = 3;
 }
