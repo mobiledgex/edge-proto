@@ -642,9 +642,9 @@ message ClientEdgeEvent {
   Loc gps_location = 4;
   // Latency Samples if event_type is EVENT_LATENCY_SAMPLES or EVENT_CUSTOM_EVENT
   repeated Sample samples = 5;
-  // Static device information for stats (must be sent on EVENT_INIT_CONNECTION if wanted for stats)
+  // Static device information for stats (sent on EVENT_INIT_CONNECTION. Fields are optional if not wanted for stats)
   DeviceInfoStatic device_info_static = 6;
-  // Dynamic device information for stats (must be sent on EVENT_INIT_CONNECTION, and/or EVENT_LOCATION_UPDATE, and/or EVENT_LATENCY_SAMPLES if wanted for stats)
+  // Dynamic device information for stats (sent on EVENT_INIT_CONNECTION, and/or EVENT_LOCATION_UPDATE, and/or EVENT_LATENCY_SAMPLES if wanted for stats)
   DeviceInfoDynamic device_info_dynamic = 7;
   // Custom event specified by the application
   string custom_event = 8;
