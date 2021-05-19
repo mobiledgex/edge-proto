@@ -638,7 +638,7 @@ message ClientEdgeEvent {
     EVENT_CUSTOM_EVENT = 5;
   }
   ClientEventType event_type = 3;
-  // GPS Location info if event_type is EVENT_LOCATION_UPDATE or EVENT_LATENCY_SAMPLES. Also must be sent on EVENT_INIT_CONNECTION.
+  // GPS Location info if event_type is EVENT_LOCATION_UPDATE or EVENT_LATENCY_SAMPLES
   Loc gps_location = 4;
   // Latency Samples if event_type is EVENT_LATENCY_SAMPLES or EVENT_CUSTOM_EVENT
   repeated Sample samples = 5;
