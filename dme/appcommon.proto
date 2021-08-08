@@ -62,6 +62,8 @@ enum HealthCheck {
   HEALTH_CHECK_FAIL_SERVER_FAIL = 2;
   // Health Check is ok
   HEALTH_CHECK_OK = 3;
+  // Health Check failure due to Cloudlet Offline
+  HEALTH_CHECK_CLOUDLET_OFFLINE = 4;
 }
 
 // CloudletState is the state of the Cloudlet.
