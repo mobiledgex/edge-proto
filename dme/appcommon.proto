@@ -46,6 +46,8 @@ message AppPort {
   bool tls = 7;
   // use nginx proxy for this port if you really need a transparent proxy (udp only)
   bool nginx = 8;
+  // Maximum datagram size (udp only)
+  int64 max_pkt_size = 9;
 }
 
 // Health check status
