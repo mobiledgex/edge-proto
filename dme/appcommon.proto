@@ -48,6 +48,8 @@ message AppPort {
   bool nginx = 8;
   // Maximum datagram size (udp only)
   int64 max_pkt_size = 9;
+  // Load balancer service IP
+  string load_balancer_service_ip = 10;
 }
 
 // Health check status
