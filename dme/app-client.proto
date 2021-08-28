@@ -674,20 +674,20 @@ message ServerEdgeEvent {
     EVENT_ERROR = 8;
   }
   ServerEventType event_type = 1;
-  // Cloudlet state information
+  // Cloudlet state information if cloudlet state is not CLOUDLET_STATE_READY
   CloudletState cloudlet_state = 2;
-  // Cloudlet maintenance state information
+  // Cloudlet maintenance state information if maintenance state is not NORMAL_OPERATION
   MaintenanceState maintenance_state = 3;
-  // AppInst health state information
+  // AppInst health state information if health check is not HEALTH_CHECK_OK
   HealthCheck health_check = 4;
   // Summarized RTT Latency stats from samples provided from client if event_type is EVENT_LATENCY
   Statistics statistics = 5;
   /* 
-   * New and closer cloudlet if event_type is EVENT_CLOUDLET_UPDATE. 
-   * Also sent on EVENT_CLOUDLET_STATE, if cloudlet_state != CLOUDLET_STATE_READY
-   * Also sent on EVENT_CLOUDLET_MAINTENANCE, if maintenance_state == UNDER_MAINTENANCE
-   * Also sent on EVENT_APPINST_HEALTH, if health_check != HEALTH_CHECK_OK && health_check != HEALTH_CHECK_UNKNOWN
-   * Also sent if a new closer appinst is created or if a previously down appinst is operational
+   * New and closer cloudlet if event_type is EVENT_CLOUDLET_UPDATE.
+   * (EVENT_CLOUDLET_UPDATE occurs if the client is closer to a different cloudlet, or a new closer appinst is created, or a previously down appinst/cloudlet that is closest to the client is now operational)
+   * Also sent on EVENT_CLOUDLET_STATE if another cloudlet is available
+   * Also sent on EVENT_CLOUDLET_MAINTENANCE, if another cloudlet is available and maintenance_state == UNDER_MAINTENANCE
+   * Also sent on EVENT_APPINST_HEALTH, if another cloudlet is available and health_check != HEALTH_CHECK_UNKNOWN
    */
   FindCloudletReply new_cloudlet = 6;
   // Error message if event_type is EVENT_ERROR
