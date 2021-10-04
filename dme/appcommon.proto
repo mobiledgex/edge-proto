@@ -4,12 +4,7 @@ syntax = "proto3";
 package distributed_match_engine;
 
 import "google/protobuf/descriptor.proto";
-
-extend google.protobuf.EnumValueOptions {
-  // Backend defines a field that is filled in by the back-end,
-  // not by the user.
-  bool enum_backend = 51042;
-}
+import "edgeprotogen.proto";
 
 // Layer4 Protocol
 //
@@ -98,23 +93,23 @@ enum MaintenanceState {
   // Request start of maintenance
   MAINTENANCE_START = 1;
   // Trigger failover for any HA AppInsts
-  FAILOVER_REQUESTED = 2 [(enum_backend) = true];
+  FAILOVER_REQUESTED = 2 [(edgeprotogen.enum_backend) = true];
   // Failover done
-  FAILOVER_DONE = 3 [(enum_backend) = true];
+  FAILOVER_DONE = 3 [(edgeprotogen.enum_backend) = true];
   // Some errors encountered during maintenance failover
-  FAILOVER_ERROR = 4 [(enum_backend) = true];
+  FAILOVER_ERROR = 4 [(edgeprotogen.enum_backend) = true];
   // Request start of maintenance without AutoProv failover
   MAINTENANCE_START_NO_FAILOVER = 5;
   // Request CRM to transition to maintenance
-  CRM_REQUESTED = 6 [(enum_backend) = true];
+  CRM_REQUESTED = 6 [(edgeprotogen.enum_backend) = true];
   // CRM request done and under maintenance
-  CRM_UNDER_MAINTENANCE = 7 [(enum_backend) = true];
+  CRM_UNDER_MAINTENANCE = 7 [(edgeprotogen.enum_backend) = true];
   // CRM failed to go into maintenance
-  CRM_ERROR = 8 [(enum_backend) = true];
+  CRM_ERROR = 8 [(edgeprotogen.enum_backend) = true];
   // Request CRM to transition to normal operation
-  NORMAL_OPERATION_INIT = 9 [(enum_backend) = true];
+  NORMAL_OPERATION_INIT = 9 [(edgeprotogen.enum_backend) = true];
   // Under maintenance
-  UNDER_MAINTENANCE = 31 [(enum_backend) = true];
+  UNDER_MAINTENANCE = 31 [(edgeprotogen.enum_backend) = true];
 }
 
 /*
