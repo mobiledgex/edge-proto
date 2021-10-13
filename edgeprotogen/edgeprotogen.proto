@@ -1,0 +1,12 @@
+// protogen options
+
+syntax = "proto3";
+package edgeprotogen;
+
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.EnumValueOptions {
+  // Backend defines a field that is filled in by the back-end,
+  // not by the user.
+  bool enum_backend = 51042;
+}
