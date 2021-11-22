@@ -60,7 +60,7 @@ message RegisterClientRequest {
   /*
    * Cell ID
    *
-   * _(removed)_  Cellular ID of where the client is connected.
+   * _(removed)_ Cellular ID of where the client is connected.
    */
   reserved "cell_id";
   reserved 7;
@@ -267,7 +267,7 @@ message VerifyLocationRequest {
   /*
    * Cell ID
    *
-   * _(removed)_  Cell ID where the client is
+   * _(removed)_ Cell ID where the client is
    */
   reserved "cell_id";
   reserved 6;
