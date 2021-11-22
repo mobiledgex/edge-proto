@@ -60,9 +60,10 @@ message RegisterClientRequest {
   /*
    * Cell ID
    *
-   * _(optional)_ Cellular ID of where the client is connected.
+   * _(removed)_  Cellular ID of where the client is connected.
    */
-  uint32 cell_id = 7;
+  reserved "cell_id";
+  reserved 7;
   /*
    * Unique ID Type
    *
@@ -160,9 +161,10 @@ message FindCloudletRequest {
   /*
    * Cell ID
    *
-   * _(optional)_ Cell ID where the client is
+   * _(removed)_ Cell ID where the client is
    */
-  uint32 cell_id = 8;
+  reserved "cell_id";
+  reserved 8;
   /*
    * Tags
    *
@@ -265,9 +267,10 @@ message VerifyLocationRequest {
   /*
    * Cell ID
    *
-   * _(optional)_ Cell ID where the client is
+   * _(removed)_  Cell ID where the client is
    */
-  uint32 cell_id = 6;
+  reserved "cell_id";
+  reserved 6;
   /*
    * Tags
    *
@@ -320,8 +323,9 @@ message GetLocationRequest {
   string session_cookie = 2;
   // Unique carrier identification (typically MCC + MNC)
   string carrier_name = 3;
-  // _(optional)_ Cell id where the client is
-  uint32 cell_id = 4;
+  // _(removed)_ Cell id where the client is
+  reserved "cell_id";
+  reserved 4;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
@@ -369,8 +373,9 @@ message AppInstListRequest {
   string carrier_name = 3;
   // The GPS location of the user
   Loc gps_location = 4;
-  // _(optional)_ Cell id where the client is
-  uint32 cell_id = 5;
+  // _(removed)_ Cell id where the client is
+  reserved "cell_id";
+  reserved 5;
   // _(optional)_ Limit the number of results, defaults to 3
   uint32 limit = 6;
   // _(optional)_ Vendor specific data
@@ -433,8 +438,9 @@ message FqdnListRequest {
   uint32 ver = 1;
   // Session Cookie from RegisterClientRequest
   string session_cookie = 2;
-  // _(optional)_ Cell id where the client is
-  uint32 cell_id = 3;
+  // _(removed)_ Cell id where the client is
+  reserved "cell_id";
+  reserved 3;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
@@ -530,8 +536,9 @@ message DynamicLocGroupRequest {
   DlgCommType comm_type = 11;
   // Unused
   string user_data = 12;
-  // _(optional)_ Cell id where the client is
-  uint32 cell_id = 13;
+  // _(removed)_ Cell id where the client is
+  reserved "cell_id";
+  reserved 13;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
@@ -585,8 +592,9 @@ message QosPositionRequest{
   int32 lte_category = 4;
   // _(optional)_ Band list used by the client.
   BandSelection band_selection = 5;
-  // _(optional)_ Cell id where the client is
-  uint32 cell_id = 6;
+  // _(removed)_ Cell id where the client is
+  reserved "cell_id";
+  reserved 6;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
