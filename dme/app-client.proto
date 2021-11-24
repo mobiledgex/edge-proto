@@ -163,6 +163,9 @@ message FindCloudletRequest {
    * _(optional)_ Cell ID where the client is
    */
   uint32 cell_id = 8;
+
+  string ip_user_equipment = 9;
+
   /*
    * Tags
    *
