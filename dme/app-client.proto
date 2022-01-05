@@ -217,7 +217,7 @@ message FindCloudletReply {
   enum FindStatus {
     FIND_UNKNOWN = 0;
     FIND_FOUND = 1;
-    FIND_NOTFOUND = 2;
+    FIND_NOT_FOUND = 2;
   }
   // Status return
   FindStatus status = 2;
