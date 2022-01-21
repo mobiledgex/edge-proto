@@ -10,3 +10,8 @@ extend google.protobuf.EnumValueOptions {
   // not by the user.
   bool enum_backend = 51042;
 }
+
+extend google.protobuf.MessageOptions {
+  // message has custom yaml/json marshalers
+  bool custom_yaml_json_marshalers = 51052;
+}
