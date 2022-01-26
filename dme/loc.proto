@@ -7,12 +7,15 @@
 syntax = "proto3";
 package distributed_match_engine;
 
+import "edgeprotogen.proto";
+
 // This is a simple Timestamp message type
 // grpc-gateway converts google.protobuf.Timestamp into an RFC3339-type string
 // which is a waste of a conversion, so we define our own
 message Timestamp {
   int64 seconds = 1;
   int32 nanos = 2;
+  option (edgeprotogen.custom_yaml_json_marshalers) = true;
 }
 
 /*
