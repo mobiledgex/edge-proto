@@ -20,6 +20,26 @@ enum ReplyStatus {
   RS_FAIL = 2;
 }
 
+enum QosSessionProfile {
+  // Specifies that no priority session should be created
+  QOS_NO_PRIORITY = 0;
+  // Corresponds to a specific set of network parameters for low latency that will be 
+  // negotiated with the network provider in advance
+  QOS_LOW_LATENCY = 1;
+  // Downlink traffic from AppInst to client is prioritized up to 20Mbps
+  QOS_THROUGHPUT_DOWN_S = 2;
+  // Downlink traffic from AppInst to client is prioritized up to 50Mbps
+  QOS_THROUGHPUT_DOWN_M = 3;
+  // Downlink traffic from AppInst to client is prioritized up to 100Mbps
+  QOS_THROUGHPUT_DOWN_L = 4;
+}
+
+enum QosSessionProtocol {
+  TCP = 0;
+  UDP = 1;
+  ANY = 2;
+}
+
 message RegisterClientRequest {
   /*
    * API version
@@ -230,6 +250,146 @@ message FindCloudletReply {
   // Session Cookie for specific EdgeEvents for specific AppInst
   string edge_events_cookie = 6;
   // _(optional)_ Vendor specific data
+  map<string, string> tags = 100;
+}
+
+message QosPrioritySessionCreateRequest {
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
+  uint32 ver = 1;
+  /*
+   * Session Cookie from RegisterClientRequest
+   */
+  string session_cookie = 2;
+  /*
+  * _(optional)_ QOS Priority Session duration in seconds
+  */
+  uint32 session_duration = 3;
+  /*
+   * IP address of mobile device
+   */
+  string ip_user_equipment = 4;
+  /*
+   * IP address of the application server
+   */
+  string ip_application_server = 5;
+  /*
+   * _(optional)_ A list of single ports or port ranges on the user equipment.
+   */
+  string port_user_equipment = 6;
+  /*
+   * _(optional)_ A list of single ports or port ranges on the application server
+   */
+  string port_application_server = 7;
+  /*
+   * _(optional)_ The used transport protocol for the uplink
+   */
+  QosSessionProtocol protocol_in = 8;
+  /*
+   * _(optional)_ The used transport protocol for the downlink
+   */
+  QosSessionProtocol protocol_out = 9;
+  /*
+   * QOS Priority Session profile name
+   */
+  QosSessionProfile profile = 10;
+  /*
+   *  _(optional)_ URI of the callback receiver. Allows asynchronous delivery of session related events.
+   */
+  string notification_uri = 11;
+  /*
+   * _(optional)_ Authentification token for callback API
+   */
+  string notification_auth_token = 12;
+  /*
+   * _(optional)_ Vendor specific data
+   */
+  map<string, string> tags = 100;
+}
+
+message QosPrioritySessionReply {
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
+  uint32 ver = 1;
+  /*
+  * QOS Priority Session duration in seconds
+  */
+  uint32 session_duration = 2;
+  /*
+   * QOS Priority Session profile name
+   */
+  QosSessionProfile profile = 3;
+  /*
+   * Session ID in UUID format
+   */
+  string session_id = 4;
+  /*
+   * Timestamp of session start in seconds since unix epoch
+   */
+  uint32 started_at = 5;
+  /*
+   * Timestamp of session expiration if the session was not deleted in seconds since unix epoch
+   */
+  uint32 expires_at = 6;
+  /*
+   * HTTP Status Code of call to operator's API server.
+   */
+  uint32 http_status = 7;
+   /*
+   * _(optional)_ Vendor specific data
+   */
+  map<string, string> tags = 100;
+}
+
+message QosPrioritySessionDeleteRequest {
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
+  uint32 ver = 1;
+  /*
+   * Session Cookie from RegisterClientRequest
+   */
+   string session_cookie = 2;
+  /*
+   * QOS Priority Session profile name
+   */
+   QosSessionProfile profile = 3;
+   /*
+   * QOS Priority Session ID to be deleted
+   */
+   string session_id = 4;
+   /*
+   * _(optional)_ Vendor specific data
+   */
+  map<string, string> tags = 100;
+}
+
+message QosPrioritySessionDeleteReply {
+  /*
+   * API version
+   *
+   * _(hidden)_ Reserved for future use
+   */
+  uint32 ver = 1;
+
+  enum DeleteStatus {
+    QDEL_UNKNOWN = 0;
+    QDEL_DELETED = 1;
+    QDEL_NOT_FOUND = 2;
+  }
+  // Status return.
+  DeleteStatus status = 2;
+  /*
+   * _(optional)_ Vendor specific data
+   */
   map<string, string> tags = 100;
 }
 
@@ -727,7 +887,7 @@ service MatchEngineApi {
    * there are no suitable cloudlet instances available, the client may connect
    * to the application server located in the public cloud.
    */
-  rpc FindCloudlet(FindCloudletRequest) returns (FindCloudletReply) {
+   rpc FindCloudlet(FindCloudletRequest) returns (FindCloudletReply) {
     option (google.api.http) = {
       post: "/v1/findcloudlet"
       body: "*"
@@ -746,6 +906,33 @@ service MatchEngineApi {
       body: "*"
     };
   }
+
+  /*
+   * QosPrioritySessionCreate
+   *
+   * Creates a QOS priority session (latency or throughput priority) from the client
+   * to the app inst by making a call to the operator's priority session API server.
+   */
+   rpc QosPrioritySessionCreate(QosPrioritySessionCreateRequest) returns (QosPrioritySessionReply) {
+    option (google.api.http) = {
+      post: "/v1/qosprioritysessioncreate"
+      body: "*"
+    };
+  }
+
+  /*
+   * QosPrioritySessionDelete
+   *
+   * Deletes a previously created QOS priority session by making a call to the operator's 
+   * priority session API server.
+   */
+   rpc QosPrioritySessionDelete(QosPrioritySessionDeleteRequest) returns (QosPrioritySessionDeleteReply) {
+    option (google.api.http) = {
+      post: "/v1/qosprioritysessiondelete"
+      body: "*"
+    };
+  }
+
   /*
    * VerifyLocation
    *
