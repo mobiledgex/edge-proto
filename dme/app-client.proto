@@ -249,6 +249,16 @@ message FindCloudletReply {
   Loc cloudlet_location = 5;
   // Session Cookie for specific EdgeEvents for specific AppInst
   string edge_events_cookie = 6;
+
+  enum QosSessionResult {
+    QOS_NOT_ATTEMPTED = 0;
+    QOS_SESSION_CREATED = 1;
+    QOS_SESSION_FAILED = 2;
+  }
+  // Result of QOS priority session creation attempt
+  QosSessionResult qos_result = 7; 
+  // Error message in case of QOS_SESSION_FAILED
+  string qos_error_msg = 8;
   // _(optional)_ Vendor specific data
   map<string, string> tags = 100;
 }
