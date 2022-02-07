@@ -740,10 +740,10 @@ message QosPosition{
 // supported band values
 message BandSelection {
     // Radio Access Technologies
-    repeated string rat_2g = 1;
-    repeated string rat_3g = 2;
-    repeated string rat_4g = 3;
-    repeated string rat_5g = 4;
+    repeated string rat2g = 1;
+    repeated string rat3g = 2;
+    repeated string rat4g = 3;
+    repeated string rat5g = 4;
 }
 
 // QosPositionRequest is used for both GetQosPositionKpi
